@@ -4,15 +4,6 @@
 
 <header>
 	<div class="flex flex-row">
-		<iframe
-			src="https://giphy.com/embed/qWY66aDGRM8quftLGY"
-			width="30%"
-			height="30%"
-			style=""
-			frameBorder="0"
-			class="giphy-embed"
-			allowFullScreen
-		></iframe>
 		<h1 class="seymour-one-regular">TietoEvry Pong MMR</h1>
 		<Pong />
 	</div>
