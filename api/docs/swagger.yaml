@@ -1,0 +1,335 @@
+definitions:
+  Employee:
+    description: Employee account information
+    properties:
+      elo:
+        type: integer
+      email:
+        type: string
+      games:
+        description: Assuming Employee1ID is the foreign key
+        items:
+          $ref: '#/definitions/Game'
+        type: array
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - elo
+    - email
+    - name
+    - password
+    type: object
+  Game:
+    description: Game information between an employee and an user
+    properties:
+      employee1:
+        $ref: '#/definitions/Employee'
+      employee1ID:
+        type: string
+      employee2:
+        $ref: '#/definitions/Employee'
+      employee2ID:
+        type: string
+      winnerFloat:
+        type: integer
+      winnerUuid:
+        type: string
+    required:
+    - employee1ID
+    - employee2ID
+    - winnerFloat
+    - winnerUuid
+    type: object
+  LoginRequest:
+    description: Login request with email and password
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  UpdateEmployee:
+    description: UpdateEmployee account information
+    properties:
+      elo:
+        type: integer
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      phoneNumber:
+        type: string
+    type: object
+info:
+  contact: {}
+  title: TIME-SYS-API
+  version: "0.1"
+paths:
+  /api/employees:
+    get:
+      description: Get all employees
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Employee'
+            type: array
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get all employees
+      tags:
+      - Employee
+    post:
+      description: Create a new employee
+      parameters:
+      - description: Employee object
+        in: body
+        name: employee
+        required: true
+        schema:
+          $ref: '#/definitions/Employee'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/Employee'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "409":
+          description: Conflict
+        "500":
+          description: Internal Server Error
+      summary: Create a new employee
+      tags:
+      - Employee
+  /api/employees/{id}:
+    delete:
+      description: Delete an employee by its ID
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Delete an employee by ID
+      tags:
+      - Employee
+    get:
+      description: Get an employee by its ID
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Employee'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get an employee by ID
+      tags:
+      - Employee
+    put:
+      consumes:
+      - application/json
+      description: Update an existing employee by its ID
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: UpdateEmployee object
+        in: body
+        name: employee
+        required: true
+        schema:
+          $ref: '#/definitions/UpdateEmployee'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "409":
+          description: Conflict
+        "500":
+          description: Internal Server Error
+      summary: Update an existing employee
+      tags:
+      - Employee
+  /api/games:
+    get:
+      description: Get all games
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Game'
+            type: array
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get all games
+      tags:
+      - Game
+    post:
+      description: Create a new game
+      parameters:
+      - description: Game object
+        in: body
+        name: game
+        required: true
+        schema:
+          $ref: '#/definitions/Game'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/Game'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "409":
+          description: Conflict
+        "500":
+          description: Internal Server Error
+      summary: Create a new game
+      tags:
+      - Game
+  /api/games/{id}:
+    delete:
+      description: Delete an game by its ID
+      parameters:
+      - description: Game ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Delete an game by ID
+      tags:
+      - Game
+    get:
+      description: Get an game by its ID
+      parameters:
+      - description: Game ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Game'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get an game by ID
+      tags:
+      - Game
+  /api/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticates a user and returns a JWT token
+      parameters:
+      - description: Login Request
+        in: body
+        name: loginRequest
+        required: true
+        schema:
+          $ref: '#/definitions/LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Login
+      tags:
+      - Auth
+swagger: "2.0"

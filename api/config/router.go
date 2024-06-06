@@ -4,6 +4,9 @@ import (
 	"errors"
 	"os"
 
+	"github.com/MagnusV9/tietoevry-pong-mmr/api/controllers"
+	_ "github.com/MagnusV9/tietoevry-pong-mmr/api/docs"
+	weberrors "github.com/MagnusV9/tietoevry-pong-mmr/api/errors"
 	json "github.com/goccy/go-json"
 	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
@@ -11,8 +14,6 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/swagger"
-	"github.com/MagnusV9/tietoevry-pong-mmr/api/controllers"
-	weberrors "github.com/MagnusV9/tietoevry-pong-mmr/api/errors"
 )
 
 func NewRouter(
