@@ -1,17 +1,10 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import Pong from '../components/Pong.svelte';
 </script>
 
-<svelte:head>
-	<title>Pong MMR</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
-
-<section>
-	<nav></nav>
-</section>
+<div>
+	<Pong />
+</div>
 
 <style>
 	section {
