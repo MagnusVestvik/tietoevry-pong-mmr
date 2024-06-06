@@ -1,6 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
 
+	/** @type {boolean} */
+	let isHovered = false;
+
 	/** @type {HTMLCanvasElement} */
 	let canvas;
 
@@ -58,7 +61,9 @@
 
 	function animate() {
 		animationId = requestAnimationFrame(animate);
-		updateGameState();
+		if (isHovered) {
+			updateGameState();
+		}
 		draw();
 	}
 
@@ -120,5 +125,7 @@
 	width="300"
 	height="150"
 	on:mousemove={handleMouseMove}
+	on:mouseenter={() => (isHovered = true)}
+	on:mouseleave={() => (isHovered = false)}
 	style="background: black; cursor: none;"
 />
