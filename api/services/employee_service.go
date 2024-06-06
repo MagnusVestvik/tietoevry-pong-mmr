@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/google/uuid"
 	weberrors "github.com/MagnusV9/tietoevry-pong-mmr/api/errors"
+	"github.com/google/uuid"
 
 	"github.com/MagnusV9/tietoevry-pong-mmr/api/models"
 	"github.com/MagnusV9/tietoevry-pong-mmr/api/repos"
@@ -24,18 +24,14 @@ func NewEmployeeService(employeeRepo *repos.EmployeeRepo, authService *AuthServi
 }
 
 func (es *EmployeeService) GetEmployees(jwt *models.JWT) (*[]models.Employee, error) {
-	return es.employeeRepo.GetEmployees(jwt.Bid)
+	return es.employeeRepo.GetEmployees()
 }
 
 func (es *EmployeeService) GetEmployee(jwt *models.JWT, id uuid.UUID) (*models.Employee, error) {
-	return es.employeeRepo.GetEmployee(jwt.Bid, id)
+	return es.employeeRepo.GetEmployee(id)
 }
 
-func (es *EmployeeService) GetEmployeesByBusinessLocation(jwt *models.JWT, location string) (*[]models.Employee, error) {
-	return es.employeeRepo.GetEmployeesByBusinessLocation(jwt.Bid, location)
-}
-
-func (es *EmployeeService) CreateEmployee(jwt *models.JWT, employee *models.Employee) error {
+func (es *EmployeeService) CreateEmployee(employee *models.Employee) error {
 	// Validate submitted required fields
 	if err := es.validateEmployee(employee); err != nil {
 		return weberrors.NewError(400, err.Error())
@@ -48,11 +44,11 @@ func (es *EmployeeService) CreateEmployee(jwt *models.JWT, employee *models.Empl
 	}
 	employee.Password = hash
 
-	return es.employeeRepo.CreateEmployee(jwt.Bid, employee)
+	return es.employeeRepo.CreateEmployee(employee)
 }
 
 func (es *EmployeeService) UpdateEmployee(jwt *models.JWT, id uuid.UUID, updatedEmployee *models.UpdateEmployee) error {
-	existingEmployee, err := es.employeeRepo.GetEmployee(jwt.Bid, id)
+	existingEmployee, err := es.employeeRepo.GetEmployee(id)
 	if err != nil {
 		return err
 	}
@@ -81,11 +77,11 @@ func (es *EmployeeService) UpdateEmployee(jwt *models.JWT, id uuid.UUID, updated
 		existingEmployee.Password = hash
 	}
 
-	return es.employeeRepo.UpdateEmployee(jwt.Bid, existingEmployee)
+	return es.employeeRepo.UpdateEmployee(existingEmployee)
 }
 
 func (es *EmployeeService) DeleteEmployee(jwt *models.JWT, id uuid.UUID) error {
-	return es.employeeRepo.DeleteEmployee(jwt.Bid, id)
+	return es.employeeRepo.DeleteEmployee(id)
 }
 
 //

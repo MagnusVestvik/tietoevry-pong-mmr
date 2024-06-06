@@ -1,9 +1,9 @@
 package repos
 
 import (
-	"github.com/google/uuid"
 	weberrors "github.com/MagnusV9/tietoevry-pong-mmr/api/errors"
 	weberrormapper "github.com/MagnusV9/tietoevry-pong-mmr/api/errors/mappers"
+	"github.com/google/uuid"
 
 	"github.com/MagnusV9/tietoevry-pong-mmr/api/models"
 	"gorm.io/gorm"
@@ -17,9 +17,9 @@ func NewEmployeeRepo(db *gorm.DB) *EmployeeRepo {
 	return &EmployeeRepo{db: db}
 }
 
-func (er *EmployeeRepo) GetEmployees(bid uuid.UUID) (*[]models.Employee, error) {
+func (er *EmployeeRepo) GetEmployees() (*[]models.Employee, error) {
 	var employees []models.Employee
-	result := er.db.Where("business_id = ?", bid).Find(&employees)
+	result := er.db.Find(&employees)
 
 	if err := weberrormapper.MapGormError("employees", result.Error); err != nil {
 		return nil, err
@@ -28,9 +28,9 @@ func (er *EmployeeRepo) GetEmployees(bid uuid.UUID) (*[]models.Employee, error) 
 	return &employees, nil
 }
 
-func (er *EmployeeRepo) GetEmployee(bid uuid.UUID, id uuid.UUID) (*models.Employee, error) {
+func (er *EmployeeRepo) GetEmployee(id uuid.UUID) (*models.Employee, error) {
 	var employee models.Employee
-	result := er.db.Where("business_id = ? AND id = ?", bid, id).First(&employee)
+	result := er.db.Where("id = ?", id).First(&employee)
 
 	if err := weberrormapper.MapGormError("employee", result.Error); err != nil {
 		return nil, err
@@ -39,21 +39,7 @@ func (er *EmployeeRepo) GetEmployee(bid uuid.UUID, id uuid.UUID) (*models.Employ
 	return &employee, nil
 }
 
-func (er *EmployeeRepo) GetEmployeesByBusinessLocation(bid uuid.UUID, location string) (*[]models.Employee, error) {
-	var employees []models.Employee
-	result := er.db.
-		Joins("JOIN businesses ON employees.business_id = businesses.id").
-		Where("businesses.location = ?", location).
-		Find(&employees)
-
-	if err := weberrormapper.MapGormError("employees", result.Error); err != nil {
-		return nil, err
-	}
-
-	return &employees, nil
-}
-
-func (er *EmployeeRepo) CreateEmployee(bid uuid.UUID, employee *models.Employee) error {
+func (er *EmployeeRepo) CreateEmployee(employee *models.Employee) error {
 	employee.ID = uuid.New()
 	result := er.db.Create(employee)
 
@@ -64,7 +50,7 @@ func (er *EmployeeRepo) CreateEmployee(bid uuid.UUID, employee *models.Employee)
 	return nil
 }
 
-func (er *EmployeeRepo) UpdateEmployee(bid uuid.UUID, employee *models.Employee) error {
+func (er *EmployeeRepo) UpdateEmployee(employee *models.Employee) error {
 	result := er.db.Save(employee)
 
 	if err := weberrormapper.MapGormError("employee", result.Error); err != nil {
@@ -74,8 +60,8 @@ func (er *EmployeeRepo) UpdateEmployee(bid uuid.UUID, employee *models.Employee)
 	return nil
 }
 
-func (er *EmployeeRepo) DeleteEmployee(bid uuid.UUID, id uuid.UUID) error {
-	result := er.db.Where("business_id = ? AND id = ?", bid, id).Delete(&models.Employee{})
+func (er *EmployeeRepo) DeleteEmployee(id uuid.UUID) error {
+	result := er.db.Where("id = ?", id).Delete(&models.Employee{})
 
 	if err := weberrormapper.MapGormError("employee", result.Error); err != nil {
 		return err

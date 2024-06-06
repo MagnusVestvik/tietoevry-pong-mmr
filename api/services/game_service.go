@@ -15,21 +15,21 @@ func NewGameService(gameRepo *repos.GameRepo) *GameService {
 }
 
 func (as *GameService) GetGames(jwt *models.JWT) (*[]models.Game, error) {
-	return as.gameRepo.GetGames(jwt.Bid)
+	return as.gameRepo.GetGames()
 }
 
 func (as *GameService) GetGame(jwt *models.JWT, id uuid.UUID) (*models.Game, error) {
-	return as.gameRepo.GetGame(jwt.Bid, id)
+	return as.gameRepo.GetGame(id)
 }
 
 func (as *GameService) GetGamesByEmployeeID(jwt *models.JWT, employeeID uuid.UUID) (*[]models.Game, error) {
-	return as.gameRepo.GetGamesByEmployeeID(jwt.Bid, employeeID)
+	return as.gameRepo.GetGamesByEmployeeID(employeeID)
 }
 
 func (as *GameService) CreateGame(jwt *models.JWT, game *models.Game) error {
-	return as.gameRepo.CreateGame(jwt.Bid, game)
+	return as.gameRepo.CreateGame(game)
 }
 
 func (as *GameService) DeleteGame(jwt *models.JWT, id uuid.UUID) error {
-	return as.gameRepo.DeleteGame(jwt.Bid, id)
+	return as.gameRepo.DeleteGame(id)
 }

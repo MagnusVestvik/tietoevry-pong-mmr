@@ -16,9 +16,9 @@ func NewGameRepo(db *gorm.DB) *GameRepo {
 	return &GameRepo{db: db}
 }
 
-func (ar *GameRepo) GetGames(bid uuid.UUID) (*[]models.Game, error) {
+func (ar *GameRepo) GetGames() (*[]models.Game, error) {
 	var games []models.Game
-	result := ar.db.Where("business_id = ?", bid).Find(&games)
+	result := ar.db.Find(&games)
 
 	if err := weberrormapper.MapGormError("games", result.Error); err != nil {
 		return nil, err
@@ -27,9 +27,9 @@ func (ar *GameRepo) GetGames(bid uuid.UUID) (*[]models.Game, error) {
 	return &games, nil
 }
 
-func (ar *GameRepo) GetGame(bid uuid.UUID, id uuid.UUID) (*models.Game, error) {
+func (ar *GameRepo) GetGame(id uuid.UUID) (*models.Game, error) {
 	var game models.Game
-	result := ar.db.Where("business_id = ? AND id = ?", bid, id).First(&game)
+	result := ar.db.Where("id = ?", id).First(&game)
 
 	if err := weberrormapper.MapGormError("game", result.Error); err != nil {
 		return nil, err
@@ -38,9 +38,9 @@ func (ar *GameRepo) GetGame(bid uuid.UUID, id uuid.UUID) (*models.Game, error) {
 	return &game, nil
 }
 
-func (ar *GameRepo) GetGamesByEmployeeID(bid uuid.UUID, employeeID uuid.UUID) (*[]models.Game, error) {
+func (ar *GameRepo) GetGamesByEmployeeID(employeeID uuid.UUID) (*[]models.Game, error) {
 	var games []models.Game
-	result := ar.db.Where("business_id = ? AND employee_id = ?", bid, employeeID).Find(&games)
+	result := ar.db.Where("employee_id = ?", employeeID).Find(&games)
 	if err := weberrormapper.MapGormError("games", result.Error); err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (ar *GameRepo) GetGamesByEmployeeID(bid uuid.UUID, employeeID uuid.UUID) (*
 	return &games, nil
 }
 
-func (ar *GameRepo) CreateGame(bid uuid.UUID, game *models.Game) error {
+func (ar *GameRepo) CreateGame(game *models.Game) error {
 	game.ID = uuid.New()
 	result := ar.db.Create(game)
 	if err := weberrormapper.MapGormError("game", result.Error); err != nil {
@@ -58,8 +58,8 @@ func (ar *GameRepo) CreateGame(bid uuid.UUID, game *models.Game) error {
 	return nil
 }
 
-func (ar *GameRepo) DeleteGame(bid uuid.UUID, id uuid.UUID) error {
-	result := ar.db.Where("business_id = ? AND id = ?", bid, id).Delete(&models.Game{})
+func (ar *GameRepo) DeleteGame(id uuid.UUID) error {
+	result := ar.db.Where("id = ?", id).Delete(&models.Game{})
 
 	if err := weberrormapper.MapGormError("game", result.Error); err != nil {
 		return err

@@ -3,10 +3,10 @@ package controllers
 import (
 	weberrors "github.com/MagnusV9/tietoevry-pong-mmr/api/errors"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/google/uuid"
 	"github.com/MagnusV9/tietoevry-pong-mmr/api/models"
 	"github.com/MagnusV9/tietoevry-pong-mmr/api/services"
+	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 )
 
 type EmployeeController struct {
@@ -73,13 +73,12 @@ func (ec *EmployeeController) GetEmployee(c *fiber.Ctx) error {
 // @Success 201 {object} Employee
 // @Router /api/employees [post]
 func (ec *EmployeeController) CreateEmployee(c *fiber.Ctx) error {
-	jwt := mapReqToJWT(c)
 	var employee models.Employee
 	if err := c.BodyParser(&employee); err != nil {
 		return weberrors.NewError(400, err.Error())
 	}
 
-	if err := ec.employeeService.CreateEmployee(jwt, &employee); err != nil {
+	if err := ec.employeeService.CreateEmployee(&employee); err != nil {
 		return err
 	}
 
