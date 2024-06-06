@@ -1,4 +1,5 @@
 <script>
+	import Pong from '../components/Pong.svelte';
 </script>
 
 <header>
@@ -13,6 +14,7 @@
 			allowFullScreen
 		></iframe>
 		<h1 class="seymour-one-regular">TietoEvry Pong MMR</h1>
+		<Pong />
 	</div>
 </header>
 

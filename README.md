@@ -1,5 +1,6 @@
 # Ping Pong MMR Website
 
+![](https://giphy.com/embed/qWY66aDGRM8quftLGY)
 This project is a web platform for tracking and ranking players' Matchmaking Rating (MMR) in ping pong using the chess MMR equation.
 
 ## Features
