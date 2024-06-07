@@ -24,7 +24,7 @@ func main() {
 	// Initialize controllers
 	authController := controllers.NewAuthController(authService)
 	employeeController := controllers.NewEmployeeController(employeeService)
-	gameController := controllers.NewGameController(gameService)
+	gameController := controllers.NewGameController(gameService, employeeService)
 
 	app := config.NewRouter(
 		authController,

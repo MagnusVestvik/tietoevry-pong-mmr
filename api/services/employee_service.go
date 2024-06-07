@@ -44,6 +44,9 @@ func (es *EmployeeService) CreateEmployee(employee *models.Employee) error {
 	}
 	employee.Password = hash
 
+	// Set starter elo
+	employee.Elo = 1000
+
 	return es.employeeRepo.CreateEmployee(employee)
 }
 
@@ -78,6 +81,26 @@ func (es *EmployeeService) UpdateEmployee(jwt *models.JWT, id uuid.UUID, updated
 	}
 
 	return es.employeeRepo.UpdateEmployee(existingEmployee)
+}
+
+func (es *EmployeeService) UpdateEmployeeElo(jwt *models.JWT, game *models.Game) error {
+	e1, _ := es.GetEmployee(jwt, game.Employee1ID)
+	e2, _ := es.GetEmployee(jwt, game.Employee2ID)
+
+	winner, loser := e1, e2
+	if game.Employee2Score > game.Employee1Score {
+		winner, loser = e2, e1
+	}
+
+	// calculate and update elo
+	eloChange, _ := es.CalculateEloChange(winner.Elo, loser.Elo)
+	winner.Elo += eloChange
+	loser.Elo -= eloChange
+
+	es.employeeRepo.UpdateEmployee(winner)
+	es.employeeRepo.UpdateEmployee(loser)
+
+	return nil
 }
 
 func (es *EmployeeService) DeleteEmployee(jwt *models.JWT, id uuid.UUID) error {
@@ -130,4 +153,95 @@ func validatePhoneNumber(phone *string) error {
 		return fmt.Errorf("invalid phone format")
 	}
 	return nil
+}
+
+func absDiffInt(x int, y int) int {
+	if x < y {
+		return y - x
+	}
+	return x - y
+}
+
+// ELO
+// https://usatt.simplycompete.com/info/ratings
+func (es *EmployeeService) CalculateEloChange(winnerElo int, loserElo int) (int, error) {
+	eloDiff := absDiffInt(winnerElo, loserElo)
+	var eloChange int
+	var err error
+
+	if winnerElo >= loserElo {
+		eloChange, err = es.GetExpectedResult(eloDiff)
+	} else {
+		eloChange, err = es.GetUpsetResult(eloDiff)
+	}
+
+	if err != nil {
+		return 0, err
+	}
+
+	return eloChange, nil
+}
+
+func (es *EmployeeService) GetUpsetResult(pointSpread int) (int, error) {
+	elo := 0
+	switch {
+	case pointSpread >= 0 && pointSpread <= 12:
+		elo = 8
+	case pointSpread <= 37:
+		elo = 10
+	case pointSpread <= 62:
+		elo = 13
+	case pointSpread <= 87:
+		elo = 16
+	case pointSpread <= 112:
+		elo = 20
+	case pointSpread <= 137:
+		elo = 25
+	case pointSpread <= 162:
+		elo = 30
+	case pointSpread <= 187:
+		elo = 35
+	case pointSpread <= 212:
+		elo = 40
+	case pointSpread <= 237:
+		elo = 45
+	case pointSpread >= 238:
+		elo = 50
+	default:
+		return 0, weberrors.NewError(400, "invalid point spread")
+	}
+
+	return elo, nil
+}
+
+func (es *EmployeeService) GetExpectedResult(pointSpread int) (int, error) {
+	elo := 0
+	switch {
+	case pointSpread >= 0 && pointSpread <= 12:
+		elo = 8
+	case pointSpread <= 37:
+		elo = 7
+	case pointSpread <= 62:
+		elo = 6
+	case pointSpread <= 87:
+		elo = 5
+	case pointSpread <= 112:
+		elo = 4
+	case pointSpread <= 137:
+		elo = 3
+	case pointSpread <= 162:
+		elo = 2
+	case pointSpread <= 187:
+		elo = 2
+	case pointSpread <= 212:
+		elo = 1
+	case pointSpread <= 237:
+		elo = 1
+	case pointSpread >= 238:
+		elo = 0
+	default:
+		return 0, weberrors.NewError(400, "invalid point spread")
+	}
+
+	return elo, nil
 }

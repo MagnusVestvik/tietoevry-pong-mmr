@@ -1,19 +1,23 @@
 package controllers
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"github.com/google/uuid"
 	weberrors "github.com/MagnusV9/tietoevry-pong-mmr/api/errors"
 	"github.com/MagnusV9/tietoevry-pong-mmr/api/models"
 	"github.com/MagnusV9/tietoevry-pong-mmr/api/services"
+	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 )
 
 type GameController struct {
-	gameService *services.GameService
+	gameService     *services.GameService
+	employeeService *services.EmployeeService
 }
 
-func NewGameController(gameService *services.GameService) *GameController {
-	return &GameController{gameService: gameService}
+func NewGameController(gameService *services.GameService, employeeService *services.EmployeeService) *GameController {
+	return &GameController{
+		gameService:     gameService,
+		employeeService: employeeService,
+	}
 }
 
 // @Summary Get all games
@@ -79,6 +83,10 @@ func (ac *GameController) CreateGame(c *fiber.Ctx) error {
 	}
 
 	if err := ac.gameService.CreateGame(jwt, &game); err != nil {
+		return err
+	}
+
+	if err := ac.employeeService.UpdateEmployeeElo(jwt, &game); err != nil {
 		return err
 	}
 

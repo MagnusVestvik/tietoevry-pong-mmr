@@ -6,11 +6,6 @@ definitions:
         type: integer
       email:
         type: string
-      games:
-        description: Assuming Employee1ID is the foreign key
-        items:
-          $ref: '#/definitions/Game'
-        type: array
       name:
         type: string
       password:
@@ -28,19 +23,19 @@ definitions:
         $ref: '#/definitions/Employee'
       employee1ID:
         type: string
+      employee1Score:
+        type: integer
       employee2:
         $ref: '#/definitions/Employee'
       employee2ID:
         type: string
-      winnerFloat:
+      employee2Score:
         type: integer
-      winnerUuid:
-        type: string
     required:
     - employee1ID
+    - employee1Score
     - employee2ID
-    - winnerFloat
-    - winnerUuid
+    - employee2Score
     type: object
   LoginRequest:
     description: Login request with email and password

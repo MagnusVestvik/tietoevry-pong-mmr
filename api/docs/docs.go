@@ -427,13 +427,6 @@ const docTemplate = `{
                 "email": {
                     "type": "string"
                 },
-                "games": {
-                    "description": "Assuming Employee1ID is the foreign key",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Game"
-                    }
-                },
                 "name": {
                     "type": "string"
                 },
@@ -447,9 +440,9 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "employee1ID",
+                "employee1Score",
                 "employee2ID",
-                "winnerFloat",
-                "winnerUuid"
+                "employee2Score"
             ],
             "properties": {
                 "employee1": {
@@ -458,17 +451,17 @@ const docTemplate = `{
                 "employee1ID": {
                     "type": "string"
                 },
+                "employee1Score": {
+                    "type": "integer"
+                },
                 "employee2": {
                     "$ref": "#/definitions/Employee"
                 },
                 "employee2ID": {
                     "type": "string"
                 },
-                "winnerFloat": {
+                "employee2Score": {
                     "type": "integer"
-                },
-                "winnerUuid": {
-                    "type": "string"
                 }
             }
         },
