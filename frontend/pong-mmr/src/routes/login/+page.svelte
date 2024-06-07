@@ -1,19 +1,15 @@
 <script>
-	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
-	import { invalidate } from '$app/navigation';
 
 	let email = '';
 	let password = '';
-	let error = '';
 
 	const handleSubmit = async () => {
 		try {
 			const response = await fetch('http://localhost:8080/api/login', {
 				method: 'POST',
 				headers: {
-				'Content-Type': 'application/json'
+					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({ email, password })
 			});
@@ -27,12 +23,11 @@
 			await fetch('/api/set-cookie', {
 				method: 'POST',
 				headers: {
-				'Content-Type': 'application/json'
+					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({ token: data.token })
 			});
-
-			} catch (error) {
+		} catch (error) {
 			console.error('Error logging in:', error);
 		}
 	};
@@ -45,24 +40,36 @@
 			<label class="label m-5">
 				<span>Email</span>
 				<input
-					class="input variant-form-material"
+					class="input variant-form-material focus:outline-none h-10 p-4"
 					type="email"
 					bind:value={email}
-					placeholder="  Email"
+					placeholder="Email"
 					required
 				/>
 				<span> Password</span>
 				<input
-					class="input variant-form-material"
+					class="input variant-form-material focus:outline-none h-10 p-4"
 					type="password"
 					bind:value={password}
-					placeholder="  Password"
+					placeholder="Password"
 					required
 				/>
 			</label>
 			<button class="btn variant-soft m-5" type="submit">Login</button>
 		</div>
 	</form>
+	<div>
+		<p>
+			Don't have an account?
+			<a
+				href="/login/register"
+				on:click|preventDefault={() => goto('/login/register')}
+				class="underline anchor"
+			>
+				Sign up here
+			</a>
+		</p>
+	</div>
 </div>
 
 <style>
