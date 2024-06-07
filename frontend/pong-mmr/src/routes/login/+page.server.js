@@ -44,4 +44,3 @@ export async function load({ cookies }) {
 		console.error('Error logging in:', error);
 	}
 }
-
