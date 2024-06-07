@@ -3,7 +3,6 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { invalidate } from '$app/navigation';
-	export { load } from './+page.server.js';
 
 	let email = '';
 	let password = '';
@@ -11,10 +10,10 @@
 
 	const handleSubmit = async () => {
 		try {
-			const response = await fetch('/login', {
+			const response = await fetch('http://localhost:8080/api/login', {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json'
+				'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({ email, password })
 			});
@@ -23,11 +22,18 @@
 				throw new Error('Login failed');
 			}
 
-			await invalidate('/');
+			const data = await response.json();
 
-			goto('/');
-		} catch (err) {
-			error = err.message;
+			await fetch('/api/set-cookie', {
+				method: 'POST',
+				headers: {
+				'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ token: data.token })
+			});
+
+			} catch (error) {
+			console.error('Error logging in:', error);
 		}
 	};
 </script>

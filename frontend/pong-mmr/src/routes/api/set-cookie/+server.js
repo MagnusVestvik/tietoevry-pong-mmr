@@ -23,24 +23,21 @@
  * @param {Cookies} context.cookies - The cookies object to manipulate cookies.
  * @returns {Promise<void>} - A promise that resolves when the operation is complete.
  */
-export async function load({ cookies }) {
-	try {
-		const response = await fetch("http://localhost:8080/api/login", {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ email: 'm@picheta.dev', password: 'longpassword1!' }) // Replace with actual credentials
-		});
 
-		if (!response.ok) {
-			throw new Error('Login failed');
-		}
+import { json } from '@sveltejs/kit';
 
-		const data = await response.json();
-		cookies.set('Authorization', data.token, { path: '/' });
+export async function POST({ request, cookies }) {
+  try {
+    const { token } = await request.json();
 
-	} catch (error) {
-		console.error('Error logging in:', error);
-	}
+    if (!token) {
+      return json({ error: 'Token is missing' }, { status: 400 });
+    }
+
+    cookies.set('Authorization', token, { path: '/' });
+
+    return json({ success: true });
+  } catch (error) {
+    return json({ error: 'Failed to set cookie' }, { status: 500 });
+  }
 }
