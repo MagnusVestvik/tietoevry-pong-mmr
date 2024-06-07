@@ -19,7 +19,7 @@ func main() {
 	// Initialize services
 	authService := services.NewAuthService(employeeRepo)
 	employeeService := services.NewEmployeeService(employeeRepo, authService)
-	gameService := services.NewGameService(gameRepo)
+	gameService := services.NewGameService(gameRepo, employeeRepo)
 
 	// Initialize controllers
 	authController := controllers.NewAuthController(authService)
