@@ -14,27 +14,31 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase mr-4">Pong MMR</strong>
-				<LightSwitch />
+				<div class="grid grid-cols-3 gap-3">
+					<LightSwitch />
+					<a class="btn btn-sm variant-ghost-surface" href="/leaderboard"> LeaderBoard </a>
+					<a class="btn btn-sm variant-ghost-surface" href="/">Home</a>
+				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<a class="btn btn-sm variant-ghost-surface" href="/">Home</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://discord.gg/rjjADEQq"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Discord
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://github.com/MagnusV9/tietoevry-pong-mmr"
-					target="_blank"
-					rel="noreferrer"
-				>
-					GitHub
-				</a>
+				<div class="grid grid-cols-2 gap-5 logo-cloud">
+					<a
+						class="btn btn-icon variant-glass"
+						href="https://discord.gg/rjjADEQq"
+						target="_blank"
+						rel="noreferrer"
+					>
+						<img src="/images/discordlogo.svg" alt="discord logo" class="h-8 w-8" />
+					</a>
+					<a
+						class="btn btn-icon variant-glass"
+						href="https://github.com/MagnusV9/tietoevry-pong-mmr"
+						target="_blank"
+						rel="noreferrer"
+					>
+						<img src="/images/github-mark-white.svg" alt="github logo" class="h-8 w-8" />
+					</a>
+				</div>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
