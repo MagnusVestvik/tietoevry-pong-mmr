@@ -20,6 +20,9 @@ export default {
 						name: 'hamlindigo',
 						enhancements: true,
 					},
+					{
+						name: 'crimson'
+					},
 				],
 			},
 		}),

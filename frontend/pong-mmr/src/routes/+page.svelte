@@ -8,8 +8,8 @@
 <div class="flex flex-col items-center h-full w-full">
 	<Sparkles
 		text="Pong MMR: Find Your Ceiling"
-		height="20%"
-		width="50%"
+		height="10%"
+		width="25%"
 		backgroundColor="transparent"
 	/>
 </div>

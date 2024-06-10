@@ -3,10 +3,26 @@
 	const spanStyle = 'mt-6';
 
 	let email = '';
-	let userName = '';
+	let name = '';
+	let surName = '';
 	let password = '';
-	const createUser = () => {
-		'';
+	const createUser = async () => {
+		try {
+			const response = await fetch('', {
+				// TODO: add correct url for creating user.
+				method: 'Put',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email, name, surName, password })
+			});
+
+			if (!response.ok) {
+				throw new Error('Failed to create new user');
+			}
+		} catch (error) {
+			console.error('Error creating user: ', error);
+		}
 	};
 </script>
 
@@ -16,14 +32,17 @@
 			<label class="label m-5">
 				<span class={spanStyle}>Email</span>
 				<input class={inputStyle} type="email" bind:value={email} placeholder="Email" required />
-				<span class={spanStyle}>User Name</span>
+				<span class={spanStyle}>Name</span>
+				<input class={inputStyle} type="text" bind:value={name} placeholder="User Name" required />
+				<span class={spanStyle}>SurName</span>
 				<input
 					class={inputStyle}
 					type="text"
-					bind:value={userName}
+					bind:value={surName}
 					placeholder="User Name"
 					required
 				/>
+
 				<span class={spanStyle}>Password</span>
 				<input
 					class={inputStyle}

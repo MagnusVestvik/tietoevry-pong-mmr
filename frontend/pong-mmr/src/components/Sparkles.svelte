@@ -45,8 +45,8 @@
 			const sparkle = {
 				x: Math.random() * 100,
 				y: Math.random() * 100,
-				dx: Math.random(),
-				dy: Math.random(),
+				dx: Math.random() * 0.000000000000000000000000000000000000000000000000001,
+				dy: Math.random() * 0.000000000000000000000000000000000000000000000000001,
 				animationDelay: Math.random() + 's'
 			};
 			sparklesArr.push(sparkle);
@@ -73,7 +73,7 @@
 			});
 		};
 
-		setInterval(updateSparkles, 50);
+		setInterval(updateSparkles, 30);
 	});
 </script>
 

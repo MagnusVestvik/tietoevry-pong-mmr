@@ -4,9 +4,10 @@
 	let email = '';
 	let password = '';
 
-	const handleSubmit = async () => {
+	const login = async () => {
 		try {
 			const response = await fetch('http://localhost:8080/api/login', {
+				// TODO: Should not be hardcoded.
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -21,6 +22,7 @@
 			const data = await response.json();
 
 			await fetch('/api/set-cookie', {
+				// TODO: Should not be hardcoded.
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -35,7 +37,7 @@
 
 <div class="flex flex-col justify-center items-center h-full w-full">
 	<h1 class="h1 mb-36"><span class="gradient-heading">Ping-Pong MMR: Find Your Ceiling</span></h1>
-	<form on:submit|preventDefault={handleSubmit}>
+	<form on:submit|preventDefault={login}>
 		<div class="flex flex-col justify-center items-center card rounded-md">
 			<label class="label m-5">
 				<span>Email</span>
