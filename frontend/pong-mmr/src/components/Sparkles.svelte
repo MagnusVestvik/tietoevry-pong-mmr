@@ -39,14 +39,14 @@
 	let sparklesArr = [];
 
 	onMount(() => {
-		const sparkleCount = 100;
+		const sparkleCount = 300;
 
 		for (let i = 0; i < sparkleCount; i++) {
 			const sparkle = {
 				x: Math.random() * 100,
 				y: Math.random() * 100,
-				dx: Math.random() * 0.000000000000000000000000000000000000000000000000001,
-				dy: Math.random() * 0.000000000000000000000000000000000000000000000000001,
+				dx: (Math.random() * 10) ^ 10000,
+				dy: (Math.random() * 10) ^ 10000,
 				animationDelay: Math.random() + 's'
 			};
 			sparklesArr.push(sparkle);
@@ -73,7 +73,7 @@
 			});
 		};
 
-		setInterval(updateSparkles, 30);
+		setInterval(updateSparkles, 60);
 	});
 </script>
 
@@ -84,7 +84,7 @@
 	<div class="absolute inset-0 z-10">
 		{#each sparklesArr as sparkle}
 			<div
-				class="w-1 h-1 bg-white rounded-full absolute animate-blink"
+				class="w-0.5 h-0.5 bg-white rounded-full absolute animate-blink"
 				style="left: {sparkle.x}%; top: {sparkle.y}%; animation-delay: {sparkle.animationDelay};"
 			></div>
 		{/each}
@@ -108,6 +108,6 @@
 		}
 	}
 	.animate-blink {
-		animation: blink 1s infinite;
+		animation: blink 2s infinite;
 	}
 </style>
