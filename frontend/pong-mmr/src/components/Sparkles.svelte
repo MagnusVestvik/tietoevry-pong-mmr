@@ -45,8 +45,8 @@
 			const sparkle = {
 				x: Math.random() * 100,
 				y: Math.random() * 100,
-				dx: (Math.random() * 10) ^ 10000,
-				dy: (Math.random() * 10) ^ 10000,
+				dx: Math.random(),
+				dy: Math.random(),
 				animationDelay: Math.random() + 's'
 			};
 			sparklesArr.push(sparkle);
@@ -63,12 +63,6 @@
 				if (sparkle.y < 0 || sparkle.y > 100) {
 					sparkle.dy = -sparkle.dy;
 				}
-
-				if (Math.random() < 0.1) {
-					sparkle.dx = Math.random() * 2 - 1;
-					sparkle.dy = Math.random() * 2 - 1;
-				}
-
 				return sparkle;
 			});
 		};
