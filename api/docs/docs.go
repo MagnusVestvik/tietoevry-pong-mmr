@@ -449,17 +449,11 @@ const docTemplate = `{
                 "employee2Score"
             ],
             "properties": {
-                "employee1": {
-                    "$ref": "#/definitions/Employee"
-                },
                 "employee1ID": {
                     "type": "string"
                 },
                 "employee1Score": {
                     "type": "integer"
-                },
-                "employee2": {
-                    "$ref": "#/definitions/Employee"
                 },
                 "employee2ID": {
                     "type": "string"

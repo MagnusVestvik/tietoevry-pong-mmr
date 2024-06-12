@@ -55,7 +55,7 @@ func NewRouter(
 	api := app.Group("/api")
 	// Public Routes
 	api.Post("/login", authController.Login)
-	api.Post("/register", employeeController.CreateEmployee)
+	api.Post("/employees/", employeeController.CreateEmployee)
 
 	// JWT Middleware
 	api.Use(jwtware.New(jwtware.Config{
@@ -68,7 +68,7 @@ func NewRouter(
 	// Restricted Routes
 	employees := api.Group("/employees")
 	employees.Get("", employeeController.GetEmployees)
-	employees.Post("", employeeController.CreateEmployee)
+	// employees.Post("", employeeController.CreateEmployee)
 	employees.Get("/:id", employeeController.GetEmployee)
 	employees.Put("/:id", employeeController.UpdateEmployee)
 	employees.Delete("/:id", employeeController.DeleteEmployee)
