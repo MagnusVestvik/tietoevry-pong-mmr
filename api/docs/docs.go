@@ -415,12 +415,16 @@ const docTemplate = `{
             "description": "Employee account information",
             "type": "object",
             "required": [
+                "department",
                 "elo",
                 "email",
                 "name",
                 "password"
             ],
             "properties": {
+                "department": {
+                    "type": "string"
+                },
                 "elo": {
                     "type": "integer"
                 },
@@ -485,6 +489,9 @@ const docTemplate = `{
             "description": "UpdateEmployee account information",
             "type": "object",
             "properties": {
+                "department": {
+                    "type": "string"
+                },
                 "elo": {
                     "type": "integer"
                 },
@@ -495,9 +502,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
-                    "type": "string"
-                },
-                "phoneNumber": {
                     "type": "string"
                 }
             }

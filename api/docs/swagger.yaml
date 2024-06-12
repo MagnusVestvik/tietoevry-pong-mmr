@@ -2,6 +2,8 @@ definitions:
   Employee:
     description: Employee account information
     properties:
+      department:
+        type: string
       elo:
         type: integer
       email:
@@ -11,6 +13,7 @@ definitions:
       password:
         type: string
     required:
+    - department
     - elo
     - email
     - name
@@ -51,6 +54,8 @@ definitions:
   UpdateEmployee:
     description: UpdateEmployee account information
     properties:
+      department:
+        type: string
       elo:
         type: integer
       email:
@@ -58,8 +63,6 @@ definitions:
       name:
         type: string
       password:
-        type: string
-      phoneNumber:
         type: string
     type: object
 info:

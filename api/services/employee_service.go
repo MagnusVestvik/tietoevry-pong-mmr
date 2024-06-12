@@ -143,18 +143,6 @@ func validateEmail(email *string) error {
 	return nil
 }
 
-func validatePhoneNumber(phone *string) error {
-	if phone == nil || *phone == "" {
-		return nil
-	}
-
-	phoneRegex := regexp.MustCompile(`^([+][0-9]{1,3}|[0-9]{3,5})?\s?[0-9]{7,10}$`)
-	if !phoneRegex.MatchString(*phone) {
-		return fmt.Errorf("invalid phone format")
-	}
-	return nil
-}
-
 func absDiffInt(x int, y int) int {
 	if x < y {
 		return y - x
