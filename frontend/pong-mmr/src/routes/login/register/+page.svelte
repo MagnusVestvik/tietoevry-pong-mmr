@@ -4,17 +4,19 @@
 
 	let email = '';
 	let name = '';
-	let surName = '';
+	let lastName = '';
 	let password = '';
+	let department = '';
 	const createUser = async () => {
 		try {
-			const response = await fetch('', {
+			name = name + " " + lastName;
+			const response = await fetch('http://localhost:8080/api/employees', {
 				// TODO: add correct url for creating user.
-				method: 'Put',
+				method: 'Post',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ email, name, surName, password })
+				body: JSON.stringify({ email, name, password, department })
 			});
 
 			if (!response.ok) {
@@ -32,14 +34,23 @@
 			<label class="label m-5">
 				<span class={spanStyle}>Email</span>
 				<input class={inputStyle} type="email" bind:value={email} placeholder="Email" required />
-				<span class={spanStyle}>Name</span>
-				<input class={inputStyle} type="text" bind:value={name} placeholder="User Name" required />
-				<span class={spanStyle}>SurName</span>
+				<span class={spanStyle}>First Name</span>
+				<input class={inputStyle} type="text" bind:value={name} placeholder="First Name" required />
+				<span class={spanStyle}>Last Name</span>
 				<input
 					class={inputStyle}
 					type="text"
-					bind:value={surName}
-					placeholder="User Name"
+					bind:value={lastName}
+					placeholder="Last Name"
+					required
+				/>
+
+				<span class={spanStyle}>Department</span>
+				<input
+					class={inputStyle}
+					type="text"
+					bind:value={department}
+					placeholder="Department"
 					required
 				/>
 
