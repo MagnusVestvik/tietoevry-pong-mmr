@@ -11,7 +11,24 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-export * from './apis/auth-api';
-export * from './apis/employee-api';
-export * from './apis/game-api';
 
+ /**
+ * Login request with email and password
+ *
+ * @export
+ * @interface LoginRequest
+ */
+export interface LoginRequest {
+
+    /**
+     * @type {string}
+     * @memberof LoginRequest
+     */
+    email: string;
+
+    /**
+     * @type {string}
+     * @memberof LoginRequest
+     */
+    password: string;
+}
