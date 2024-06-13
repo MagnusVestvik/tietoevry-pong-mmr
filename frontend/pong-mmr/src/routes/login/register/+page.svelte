@@ -1,17 +1,18 @@
 <script>
+	import { goto } from "$app/navigation";
+
 	const inputStyle = 'input variant-form-material focus:outline-none h-10 p-4';
 	const spanStyle = 'mt-6';
 
 	let email = '';
-	let name = '';
+	let firstName = '';
 	let lastName = '';
 	let password = '';
 	let department = '';
 	const createUser = async () => {
 		try {
-			name = name + " " + lastName;
+			let name = firstName + " " + lastName;
 			const response = await fetch('http://localhost:8080/api/employees', {
-				// TODO: add correct url for creating user.
 				method: 'Post',
 				headers: {
 					'Content-Type': 'application/json'
@@ -22,6 +23,36 @@
 			if (!response.ok) {
 				throw new Error('Failed to create new user');
 			}
+
+			try {
+				const response = await fetch('http://localhost:8080/api/login', {
+				// TODO: Should not be hardcoded.
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email, password })
+			});
+
+			if (!response.ok) {
+				throw new Error('Login failed');
+			}
+
+			const data = await response.json();
+
+			await fetch('/api/set-cookie', {
+				// TODO: Should not be hardcoded.
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ token: data.token })
+			});
+			goto("/")
+			} catch (error) {
+				console.error('Error logging in: ', error);
+			}
+
 		} catch (error) {
 			console.error('Error creating user: ', error);
 		}
@@ -35,7 +66,7 @@
 				<span class={spanStyle}>Email</span>
 				<input class={inputStyle} type="email" bind:value={email} placeholder="Email" required />
 				<span class={spanStyle}>First Name</span>
-				<input class={inputStyle} type="text" bind:value={name} placeholder="First Name" required />
+				<input class={inputStyle} type="text" bind:value={firstName} placeholder="First Name" required />
 				<span class={spanStyle}>Last Name</span>
 				<input
 					class={inputStyle}

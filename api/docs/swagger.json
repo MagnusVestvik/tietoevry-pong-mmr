@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "TIME-SYS-API",
+        "title": "tietoevry-pong-mmr",
         "contact": {},
         "version": "0.1"
     },

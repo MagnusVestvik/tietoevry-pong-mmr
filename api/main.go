@@ -7,7 +7,7 @@ import (
 	"github.com/MagnusV9/tietoevry-pong-mmr/api/services"
 )
 
-// @Title TIME-SYS-API
+// @Title tietoevry-pong-mmr
 // @Version 0.1
 func main() {
 	config.Connect()

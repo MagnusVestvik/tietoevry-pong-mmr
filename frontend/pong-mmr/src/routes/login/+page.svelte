@@ -29,6 +29,7 @@
 				},
 				body: JSON.stringify({ token: data.token })
 			});
+			goto("/")
 		} catch (error) {
 			console.error('Error logging in:', error);
 		}

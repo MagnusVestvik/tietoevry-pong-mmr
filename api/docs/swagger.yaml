@@ -63,7 +63,7 @@ definitions:
     type: object
 info:
   contact: {}
-  title: TIME-SYS-API
+  title: tietoevry-pong-mmr
   version: "0.1"
 paths:
   /api/employees:
