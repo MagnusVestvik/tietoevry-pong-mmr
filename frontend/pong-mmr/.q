@@ -17,12 +17,12 @@
 	onMount(async () => {
 		const cookie = await getCookie();
 		if (cookie) {
-			const data = await cookie.json();
-			const jwt = data.Authorization;
-			if (!jwt) return;
-			name = parseJwt(jwt).name;
-		}
-	});
+  const data = await cookie.json();
+  const jwt = data.Authorization;
+  if (jwt) {
+    name = parseJwt(jwt).name;
+  }
+}
 </script>
 
 <!-- App Shell -->

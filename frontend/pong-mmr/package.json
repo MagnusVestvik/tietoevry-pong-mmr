@@ -36,6 +36,7 @@
   "type": "module",
   "dependencies": {
     "@floating-ui/dom": "1.6.5",
-    "jwt-decode": "^4.0.0"
+    "jwt-decode": "^4.0.0",
+    "superagent": "^9.0.2"
   }
 }
