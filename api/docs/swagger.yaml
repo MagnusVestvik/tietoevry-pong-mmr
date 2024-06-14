@@ -47,6 +47,9 @@ definitions:
     - email
     - password
     type: object
+  Tournament:
+    description: Tournament account information
+    type: object
   UpdateEmployee:
     description: UpdateEmployee account information
     properties:
@@ -326,4 +329,135 @@ paths:
       summary: Login
       tags:
       - Auth
+  /api/tournaments:
+    get:
+      description: Get all tournaments
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Tournament'
+            type: array
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get all tournaments
+      tags:
+      - Tournament
+    post:
+      description: Create a new tournament
+      parameters:
+      - description: Tournament object
+        in: body
+        name: tournament
+        required: true
+        schema:
+          $ref: '#/definitions/Tournament'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/Tournament'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "409":
+          description: Conflict
+        "500":
+          description: Internal Server Error
+      summary: Create a new tournament
+      tags:
+      - Tournament
+  /api/tournaments/{id}:
+    delete:
+      description: Delete a tournament
+      parameters:
+      - description: Tournament ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Delete a tournament
+      tags:
+      - Tournament
+    get:
+      description: Get a tournament by its ID
+      parameters:
+      - description: Tournament ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Tournament'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get a tournament by ID
+      tags:
+      - Tournament
+    put:
+      description: Update a tournament
+      parameters:
+      - description: Tournament ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Tournament object
+        in: body
+        name: tournament
+        required: true
+        schema:
+          $ref: '#/definitions/Tournament'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Tournament'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Update a tournament
+      tags:
+      - Tournament
 swagger: "2.0"
