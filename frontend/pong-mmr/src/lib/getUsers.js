@@ -1,6 +1,4 @@
-import ApiClient from '../generated/src/ApiClient';
-import EmployeeApi from '../generated/src/api/EmployeeApi';
-
+import ApiClient from '../generated/src/ApiClient'; import EmployeeApi from '../generated/src/api/EmployeeApi';
 /**
  * @type {ApiClient}
  */
@@ -55,3 +53,4 @@ export function getAllEmployees(jwt) {
 		});
 	});
 }
+

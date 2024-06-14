@@ -6,6 +6,16 @@
 	import { getAllEmployees } from '$lib/getUsers';
 	import { getCookie } from '$lib/auth';
 
+	/**
+	 *@type{string}
+	 */
+	let inputPopupDemo = '';
+
+	/**
+	 *@type{any} TODO:  fix typing
+	 */
+	let userOptions;
+
 	//  TODO: Lag type for dette.
 	/**
 	 * Represents a user.
@@ -40,12 +50,6 @@
 				console.error('Error fetching employees:', error);
 			});
 	});
-
-	let userOptions;
-	/**
-	 *@type{string}
-	 */
-	let inputPopupDemo = '';
 
 	let popupSettings = {
 		event: 'focus-click',
