@@ -41,8 +41,17 @@ export function getEmployeeApiClient(jwt) {
  */
 export function getAllEmployees(jwt) {
 	if (!employeeApi) {
-		employeeApi = getEmployeeApiClient(jwt)
+		employeeApi = getEmployeeApiClient(jwt);
 	}
-	// @ts-ignore  TODO: fix typing
-	return employeeApi.apiEmployeesGet((data) => data);
+
+	return new Promise((resolve, reject) => {
+		employeeApi.apiEmployeesGet((/** @type {any} */ err, /** @type {any} */ data) => { // TODO: fix typing
+			if (err) {
+				console.error(err);
+				reject(err);
+			} else {
+				resolve(data);
+			}
+		});
+	});
 }

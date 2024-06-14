@@ -32,10 +32,13 @@
 	onMount(async () => {
 		const cookie = await getCookie();
 		const auth = cookie.Authorization;
-		console.log(auth);
-
-		console.log('magnuiuuus');
-		userOptions = await getAllEmployees(auth);
+		userOptions = getAllEmployees(auth)
+			.then((data) => {
+				console.log('Employees:', data);
+			})
+			.catch((error) => {
+				console.error('Error fetching employees:', error);
+			});
 	});
 
 	let userOptions;
@@ -62,9 +65,6 @@
 		width="40%"
 		backgroundColor="transparent"
 	/>
-	<div>
-		<button on:click={() => console.log(userOptions)}> </button>
-	</div>
 
 	<div class="flex items-center card shadow-gray-700 p-10 max-w-[80%] mt-28">
 		<div class="grid-cols-2">
