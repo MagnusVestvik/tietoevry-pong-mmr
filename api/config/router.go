@@ -20,6 +20,7 @@ func NewRouter(
 	authController *controllers.AuthController,
 	employeeController *controllers.EmployeeController,
 	gameController *controllers.GameController,
+	tournamentController *controllers.TournamentController,
 ) *fiber.App {
 	app := fiber.New(fiber.Config{
 		JSONEncoder: json.Marshal,
@@ -78,6 +79,12 @@ func NewRouter(
 	games.Post("", gameController.CreateGame)
 	games.Get("/:id", gameController.GetGame)
 	games.Delete("/:id", gameController.DeleteGame)
+
+	tournaments := api.Group("/tournaments")
+	tournaments.Get("", tournamentController.GetTournaments)
+	tournaments.Post("", tournamentController.CreateTournament)
+	tournaments.Get("/:id", tournamentController.GetTournament)
+	tournaments.Delete("/:id", tournamentController.DeleteTournament)
 
 	return app
 }

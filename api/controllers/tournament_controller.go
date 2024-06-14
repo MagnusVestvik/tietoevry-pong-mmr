@@ -10,13 +10,11 @@ import (
 
 type TournamentController struct {
 	tournamentService *services.TournamentService
-	employeeService   *services.EmployeeService
 }
 
-func NewTournamentController(tournamentService *services.TournamentService, employeeService *services.EmployeeService) *TournamentController {
+func NewTournamentController(tournamentService *services.TournamentService) *TournamentController {
 	return &TournamentController{
 		tournamentService: tournamentService,
-		employeeService:   employeeService,
 	}
 }
 

@@ -15,21 +15,25 @@ func main() {
 	// Initialize repos
 	employeeRepo := repos.NewEmployeeRepo(config.DB)
 	gameRepo := repos.NewGameRepo(config.DB)
+	tournamentRepo := repos.NewTournamentRepo(config.DB)
 
 	// Initialize services
 	authService := services.NewAuthService(employeeRepo)
 	employeeService := services.NewEmployeeService(employeeRepo, authService)
 	gameService := services.NewGameService(gameRepo, employeeRepo)
+	tournamentService := services.NewTournamentService(tournamentRepo)
 
 	// Initialize controllers
 	authController := controllers.NewAuthController(authService)
 	employeeController := controllers.NewEmployeeController(employeeService)
 	gameController := controllers.NewGameController(gameService, employeeService)
+	tournamentController := controllers.NewTournamentController(tournamentService)
 
 	app := config.NewRouter(
 		authController,
 		employeeController,
 		gameController,
+		tournamentController,
 	)
 
 	app.Listen(":8080")

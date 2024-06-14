@@ -11,7 +11,7 @@ type Employee struct {
 	Password   string    `validate:"required"`
 	Elo        int       `validate:"required"`
 	Department string    `validate:"required"`
-	Games      []Game    `gorm:"foreignKey:Employee1ID;association_foreignkey:ID" swaggerignore:"true"` // Assuming Employee1ID is the foreign key
+	Games      []Game    `gorm:"foreignKey:ID;association_foreignkey:ID" swaggerignore:"true"`
 } //@name Employee
 
 // UpdateEmployee model info
