@@ -13,6 +13,7 @@ type Game struct {
 	Employee1Score int       `validate:"required"`
 	Employee2Score int       `validate:"required"`
 
-	Employee1 Employee `gorm:"foreignKey:Employee1ID" swaggerignore:"true"`
-	Employee2 Employee `gorm:"foreignKey:Employee2ID" swaggerignore:"true"`
+	Employee1    Employee `gorm:"foreignKey:Employee1ID" swaggerignore:"true"`
+	Employee2    Employee `gorm:"foreignKey:Employee2ID" swaggerignore:"true"`
+	TournamentID uuid.UUID
 } //@name Game

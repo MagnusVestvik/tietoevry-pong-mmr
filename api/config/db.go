@@ -19,7 +19,7 @@ func Connect() {
 		os.Exit(1)
 	}
 
-	db.AutoMigrate(&models.Employee{}, &models.Game{}, &models.Tournament{})
+	db.AutoMigrate(&models.Employee{}, &models.Tournament{}, &models.Game{})
 
 	DB = db
 }
