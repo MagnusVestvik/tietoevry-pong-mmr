@@ -3,7 +3,8 @@
 	import Sparkles from '../components/Sparkles.svelte';
 	import { Autocomplete } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
-	import { getEmployeeApiClient } from '$lib/getUsers';
+	import { getAllEmployees } from '$lib/getUsers';
+	import { getCookie } from '$lib/auth';
 
 	//  TODO: Lag type for dette.
 	/**
@@ -13,8 +14,8 @@
 	 * @property {string} value - the value a corresponding name gets when pressing enter on the search
 	 * @property {string} keywordStyle - The styling of a keyword.
 	 * @property {object} meta - A meta object that contains information about the player.
+	 * @param {any} users
 	 */
-
 	function fillUserOptions(users) {
 		return [].fill(users);
 	}
@@ -29,7 +30,12 @@
 	}
 
 	onMount(async () => {
-		userOptions = getEmployeeApiClient().apiEmployeesGet();
+		const cookie = await getCookie();
+		const auth = cookie.Authorization;
+		console.log(auth);
+
+		console.log('magnuiuuus');
+		userOptions = await getAllEmployees(auth);
 	});
 
 	let userOptions;

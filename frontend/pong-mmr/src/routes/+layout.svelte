@@ -17,8 +17,7 @@
 	onMount(async () => {
 		const cookie = await getCookie();
 		if (cookie) {
-			const data = await cookie.json();
-			const jwt = data.Authorization;
+			const jwt = cookie.Authorization;
 			if (!jwt) return;
 			name = parseJwt(jwt).name;
 		}

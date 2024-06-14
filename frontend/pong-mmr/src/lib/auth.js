@@ -7,7 +7,7 @@ export async function getCookie() {
 			}
 		});
 		if (response.ok) {
-			return response;
+			return response.json();
 		}
 		throw new Error("failed to retrive cookie");
 	} catch (error) {
