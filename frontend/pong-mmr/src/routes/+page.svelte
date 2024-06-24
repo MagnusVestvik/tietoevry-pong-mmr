@@ -7,36 +7,23 @@
 	import { getCookie } from '$lib/auth';
 
 	/**
-	 *@type{string}
+	 * Represents a user.
+	 * @typedef {Object} User
+	 * @property {string} id - The id used to recognize a unique user.
+	 * @property {string} Name - The name of the user.
+	 * @property {string} email - The users email address
+	 * @property {number} games - The number of games the user have played
+	 * @property {number} elo - The amount of elo points a given user have
 	 */
-	let inputPopupDemo = '';
 
 	/**
-	 *@type{any} TODO:  fix typing
+	 *@type{Array<User>}
 	 */
 	let employees = [];
 
-	/**
-	 * Represents a user.
-	 * @typedef {Object} UserOption
-	 * @property {string} label - The name that shows up on the search.
-	 * @property {string} value - the value a corresponding name gets when pressing enter on the search
-	 * @property {string} keywordStyle - The styling of a keyword.
-	 * @property {object} meta - A meta object that contains information about the player.
-	 * @param {any} users
-	 */
-	function fillUserOptions(users) {
-		return [].fill(users);
-	}
+	let userSearchOptions;
 
-	function generateUserOption(name, keywordStyle, meta) {
-		return {
-			label: name,
-			value: name,
-			keywordStyle: keywordStyle,
-			meta: meta
-		};
-	}
+	let userSelect = '';
 
 	onMount(async () => {
 		const cookie = await getCookie();
@@ -48,8 +35,25 @@
 			.catch((error) => {
 				console.error('Error fetching employees:', error);
 			});
-		console.log(employees);
+
+		employees.forEach((user, index) => {
+			employees[index] = Object.fromEntries(
+				Object.entries(user).filter(([key, _]) => key === 'Name')
+			);
+		});
+		userSearchOptions = createUserSearchOptions(employees.map((user) => user.Name));
 	});
+
+	/**
+	 * @param employeeNames {Array<string>}
+	 */
+	function createUserSearchOptions(employeeNames) {
+		const userSearchOptions = [];
+		for (const name of employeeNames) {
+			userSearchOptions.push({ label: name, value: name, keywords: 'plain basic' });
+		}
+		return userSearchOptions;
+	}
 
 	let popupSettings = {
 		event: 'focus-click',
@@ -57,8 +61,8 @@
 		placement: 'bottom'
 	};
 
-	function onPopupDemoSelect(event) {
-		inputPopupDemo = event.detail.label;
+	function onUserSelect(event) {
+		userSelect = event.detail.label;
 	}
 </script>
 
@@ -76,15 +80,15 @@
 				class="input autocomplete p-2"
 				type="search"
 				name="autocomplete-search"
-				bind:value={inputPopupDemo}
+				bind:value={userSelect}
 				placeholder="Search..."
 				use:popup={popupSettings}
 			/>
 			<div data-popup="popupAutocomplete">
 				<Autocomplete
-					bind:input={inputPopupDemo}
-					options={employees}
-					on:selection={onPopupDemoSelect}
+					bind:input={userSelect}
+					options={userSearchOptions}
+					on:selection={onUserSelect}
 				/>
 			</div>
 		</div>
