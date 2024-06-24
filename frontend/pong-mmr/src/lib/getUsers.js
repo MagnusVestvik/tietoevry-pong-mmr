@@ -43,12 +43,12 @@ export function getAllEmployees(jwt) {
 	}
 
 	return new Promise((resolve, reject) => {
-		employeeApi.apiEmployeesGet((/** @type {any} */ err, /** @type {any} */ data) => { // TODO: fix typing
+		employeeApi.apiEmployeesGet((/** @type {any} */ err, /** @type {any} */ data, /** @type {any} */ response) => { // TODO: fix typing
 			if (err) {
 				console.error(err);
 				reject(err);
 			} else {
-				resolve(data);
+				resolve(response);
 			}
 		});
 	});

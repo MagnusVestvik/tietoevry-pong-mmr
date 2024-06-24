@@ -14,9 +14,8 @@
 	/**
 	 *@type{any} TODO:  fix typing
 	 */
-	let userOptions;
+	let employees = [];
 
-	//  TODO: Lag type for dette.
 	/**
 	 * Represents a user.
 	 * @typedef {Object} UserOption
@@ -42,13 +41,14 @@
 	onMount(async () => {
 		const cookie = await getCookie();
 		const auth = cookie.Authorization;
-		userOptions = getAllEmployees(auth)
-			.then((data) => {
-				console.log('Employees:', data);
+		employees = await getAllEmployees(auth)
+			.then((response) => {
+				return response.body;
 			})
 			.catch((error) => {
 				console.error('Error fetching employees:', error);
 			});
+		console.log(employees);
 	});
 
 	let popupSettings = {
@@ -83,7 +83,7 @@
 			<div data-popup="popupAutocomplete">
 				<Autocomplete
 					bind:input={inputPopupDemo}
-					options={userOptions}
+					options={employees}
 					on:selection={onPopupDemoSelect}
 				/>
 			</div>
