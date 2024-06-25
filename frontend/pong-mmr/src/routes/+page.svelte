@@ -3,6 +3,7 @@
 	import Sparkles from '../components/Sparkles.svelte';
 	import { Autocomplete } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	import { getAllEmployees } from '$lib/getUsers';
 	import { getCookie } from '$lib/auth';
 
@@ -21,9 +22,14 @@
 	 */
 	let employees = [];
 
+	/**
+	 * @type {{ label: string; value: string; keywords: string; }[]}
+	 */
 	let userSearchOptions;
 
 	let userSelect = '';
+
+	let hasOpponent = false;
 
 	onMount(async () => {
 		const cookie = await getCookie();
@@ -56,13 +62,18 @@
 	}
 
 	let popupSettings = {
+		// TODO: add typing
 		event: 'focus-click',
 		target: 'popupAutocomplete',
 		placement: 'bottom'
 	};
 
+	/**
+	 * @param {{ detail: { label: string; }; }} event
+	 */
 	function onUserSelect(event) {
 		userSelect = event.detail.label;
+		hasOpponent = !hasOpponent;
 	}
 </script>
 
@@ -93,4 +104,7 @@
 			</div>
 		</div>
 	</div>
+	{#if hasOpponent}
+		<button class="btn variant-filled m-4" on:click={() => goto('/match')}> Start Match</button>
+	{/if}
 </div>

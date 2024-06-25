@@ -19,7 +19,7 @@
 		if (cookie) {
 			const jwt = cookie.Authorization;
 			if (!jwt) return;
-			name = parseJwt(jwt).name;
+			name = parseJwt(jwt).name; // TODO: fix typing
 		}
 	});
 </script>
