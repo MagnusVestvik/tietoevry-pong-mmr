@@ -7,6 +7,7 @@
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
 	import { getCookie, parseJwt } from '$lib/auth';
+	import { goto } from '$app/navigation';
 
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 	/**
@@ -22,6 +23,10 @@
 			name = parseJwt(jwt).name; // TODO: fix typing
 		}
 	});
+
+	async function logout() {
+		goto('/login');
+	}
 </script>
 
 <!-- App Shell -->
@@ -36,6 +41,9 @@
 					<a class="btn btn-sm variant-ghost-surface" href="/">Home</a>
 					{#if !name}
 						<a class="btn btn-sm variant-ghost-surface" href="/login">Sign in</a>
+					{:else}
+						<button class="btn btn-sm variant-ghost-surface" on:click={logout}>Logout</button>
+						<!--  TODO: lag log out logikk-->
 					{/if}
 				</div>
 			</svelte:fragment>

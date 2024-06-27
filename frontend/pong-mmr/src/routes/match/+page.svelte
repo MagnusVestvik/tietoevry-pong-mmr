@@ -1,6 +1,6 @@
 <script>
 	import { Avatar } from '@skeletonlabs/skeleton';
-	// import Pong from '$lib/components/Pong.svelte'; // TODO: refaktorer possisjonen til component folder
+	import Pong from '$lib/components/Pong.svelte'; // TODO: refaktorer possisjonen til component folder
 	let player1Score = 0;
 	let player2Score = 0;
 </script>
@@ -22,6 +22,7 @@
 					<button class="btn variant-filled m-1" on:click={() => player1Score++}>+</button>
 					<button class="btn variant-filled m-1" on:click={() => player1Score--}>-</button>
 				</div>
+				<Pong />
 			</section>
 		</div>
 		<div class="flex flex-col card p-4 m-4">
@@ -39,6 +40,7 @@
 					<button class="btn variant-filled m-1" on:click={() => player2Score++}>+</button>
 					<button class="btn variant-filled m-1" on:click={() => player2Score--}>-</button>
 				</div>
+				<Pong />
 			</section>
 		</div>
 	</div>

@@ -15,6 +15,23 @@ export async function getCookie() {
 	}
 }
 
+export async function deleteCookie() {
+	try {
+		const response = await fetch('/api/delete-cookie', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+		if (response.ok) {
+			return response.json();
+		}
+		throw new Error("failed to retrive cookie");
+	} catch (error) {
+		console.error(error)
+	}
+}
+
 /**
  * Decodes a JWT token and returns its payload as a JSON object.
  * @param {string} token - The JWT token to decode.
