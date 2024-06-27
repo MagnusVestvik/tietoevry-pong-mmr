@@ -5,7 +5,8 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { getAllEmployees } from '$lib/getUsers';
-	import { getCookie, deleteCookie } from '$lib/auth';
+	import { getCookie } from '$lib/auth';
+	import { getCookies } from '$lib/userFunctions';
 
 	/**
 	 * Represents a user.
@@ -31,18 +32,14 @@
 
 	let hasOpponent = false;
 
-	async function delCookie() {
-		const cookie = await deleteCookie();
-		console.log(cookie);
+	function logAllCookies() {
+		const cookies = getCookies();
+		console.log(cookies);
 	}
 
 	onMount(async () => {
 		const cookie = await getCookie();
-		console.log(cookie);
 		const auth = cookie.Authorization;
-		console.log(auth);
-		console.log('this is the cookie');
-		console.log(cookie);
 		employees = await getAllEmployees(auth)
 			.then((response) => {
 				return response.body;
@@ -86,7 +83,7 @@
 	}
 </script>
 
-<button on:click={delCookie} class="btn variant-filled"> Cookie</button>
+<button on:click={logAllCookies} class="btn variant-filled"> Cookie</button>
 <div class="flex flex-col items-center mt-10 h-screen w-screen">
 	<Sparkles
 		text="Pong MMR: Find Your Ceiling"

@@ -1,73 +1,48 @@
 <script>
-	import { goto } from "$app/navigation";
+	import { createUser } from '$lib/userFunctions';
+	import { login } from '$lib/auth';
+	import { goto } from '$app/navigation';
 
 	const inputStyle = 'input variant-form-material focus:outline-none h-10 p-4';
-	const spanStyle = 'mt-6';
 
 	let email = '';
 	let firstName = '';
 	let lastName = '';
 	let password = '';
 	let department = '';
-	const createUser = async () => {
-		try {
-			let name = firstName + " " + lastName;
-			const response = await fetch('http://localhost:8080/api/employees', {
-				method: 'Post',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ email, name, password, department })
-			});
 
-			if (!response.ok) {
-				throw new Error('Failed to create new user');
+	async function submitNewUser() {
+		await createUser(
+			{
+				email: email,
+				name: firstName + ' ' + lastName,
+				password: password,
+				department: department
+			},
+			async () => {
+				if (await login(email, password)) {
+					goto('/');
+				}
 			}
-
-			try {
-				const response = await fetch('http://localhost:8080/api/login', {
-				// TODO: Should not be hardcoded.
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ email, password })
-			});
-
-			if (!response.ok) {
-				throw new Error('Login failed');
-			}
-
-			const data = await response.json();
-
-			await fetch('/api/set-cookie', {
-				// TODO: Should not be hardcoded.
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ token: data.token })
-			});
-			goto("/")
-			} catch (error) {
-				console.error('Error logging in: ', error);
-			}
-
-		} catch (error) {
-			console.error('Error creating user: ', error);
-		}
-	};
+		);
+	}
 </script>
 
 <div class="flex flex-col justify-center items-center h-full w-full">
-	<form on:submit|preventDefault={createUser}>
+	<form on:submit|preventDefault={submitNewUser}>
 		<div class="card flex flex-col justify-center items-center">
 			<label class="label m-5">
-				<span class={spanStyle}>Email</span>
+				<span class="mt-6">Email</span>
 				<input class={inputStyle} type="email" bind:value={email} placeholder="Email" required />
-				<span class={spanStyle}>First Name</span>
-				<input class={inputStyle} type="text" bind:value={firstName} placeholder="First Name" required />
-				<span class={spanStyle}>Last Name</span>
+				<span class="mt-6">First Name</span>
+				<input
+					class={inputStyle}
+					type="text"
+					bind:value={firstName}
+					placeholder="First Name"
+					required
+				/>
+				<span class="mt-6">Last Name</span>
 				<input
 					class={inputStyle}
 					type="text"
@@ -76,7 +51,7 @@
 					required
 				/>
 
-				<span class={spanStyle}>Department</span>
+				<span class="mt-6">Department</span>
 				<input
 					class={inputStyle}
 					type="text"
@@ -85,7 +60,7 @@
 					required
 				/>
 
-				<span class={spanStyle}>Password</span>
+				<span class="mt-6">Password</span>
 				<input
 					class={inputStyle}
 					type="password"
