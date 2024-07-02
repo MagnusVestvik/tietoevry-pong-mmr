@@ -32,9 +32,20 @@
 
 	let hasOpponent = false;
 
-	function logAllCookies() {
-		const cookies = getCookies();
-		console.log(cookies);
+
+	async function deleteCookie() {
+		try {
+			const response = await fetch('/api/delete-cookie', {
+				method: 'DELETE'
+			});
+			if (response.ok) {
+				console.log('Cookie deleted successfully');
+			} else {
+				console.error('Failed to delete cookie');
+			}
+		} catch (error) {
+			console.error('Error:', error);
+		}
 	}
 
 	onMount(async () => {
@@ -83,7 +94,7 @@
 	}
 </script>
 
-<button on:click={logAllCookies} class="btn variant-filled"> Cookie</button>
+<button on:click={deleteCookie} class="btn variant-filled"> Cookie</button>
 <div class="flex flex-col items-center mt-10 h-screen w-screen">
 	<Sparkles
 		text="Pong MMR: Find Your Ceiling"
