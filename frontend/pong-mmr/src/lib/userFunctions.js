@@ -50,10 +50,3 @@ export function getCookies() {
 	const cookie = document.cookie;
 	return cookie;
 }
-
-/**
- *@param {string} name
- */
-export function deleteCookie(name) {
-	document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-}
