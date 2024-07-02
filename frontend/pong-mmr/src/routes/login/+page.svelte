@@ -6,7 +6,8 @@
 	let password = '';
 
 	async function handleLogin() {
-		if (await login(email, password)) {
+		const isLoggedIn = await login({ email, password });
+		if (isLoggedIn) {
 			goto('/');
 		}
 	}

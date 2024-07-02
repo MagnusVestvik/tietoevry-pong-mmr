@@ -1,4 +1,67 @@
 import { goto } from "$app/navigation";
+import ApiClient from "../generated/src/ApiClient";
+import AuthApi from "../generated/src/api/AuthApi";
+
+/**
+ * @type {ApiClient}
+ */
+let clientInstance;
+
+/**
+ * @type {AuthApi}
+ */
+let authApiClient;
+
+function getClient() {
+	if (clientInstance) {
+		return clientInstance;
+	}
+	clientInstance = new ApiClient();
+	clientInstance.basePath = 'http://localhost:8080';
+	return clientInstance;
+}
+
+
+function getAuthApiClient() {
+	const client = getClient();
+
+	if (authApiClient) {
+		return authApiClient;
+	}
+	authApiClient = new AuthApi(client);
+	return authApiClient;
+}
+
+// TODO: fix typing
+/**
+ * @param {any} user
+ */
+export async function login(user) {
+	return new Promise((resolve, reject) => {
+		const authApiClient = getAuthApiClient();
+		authApiClient.apiLoginPost(user, async (/** @type {any} */ error, /** @type {any} */ _, /** @type {{ body: { token: any; }; }} */ response) => {
+			if (error) {
+				console.error('Error logging in: ', error);
+				reject(error);
+				return;
+			}
+			const token = response.body.token;
+			try {
+				const resp = await fetch('/api/set-cookie', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ token: token })
+				});
+				resolve(resp.ok);
+			} catch (fetchError) {
+				console.error('Error setting cookie: ', fetchError);
+				reject(fetchError);
+			}
+		});
+	});
+}
 
 export async function getCookie() {
 	try {
@@ -38,41 +101,5 @@ export function parseJwt(token) {
 	return JSON.parse(jsonPayload);
 }
 
-/**
- *@param {string} email
- *@param {string} password
- *@returns {Promise<boolean>} returns true if login succeed, return false otherwise
- */
-export async function login(email, password) {
-	try {
-		const response = await fetch('http://localhost:8080/api/login', {
-			// TODO: Should not be hardcoded. Should also use generated client
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ email, password })
-		});
 
-		if (!response.ok) {
-			throw new Error('Login failed');
-		}
-
-		const data = await response.json();
-
-		await fetch('/api/set-cookie', {
-			// TODO: Should not be hardcoded.
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ token: data.token })
-		});
-	}
-	catch (error) {
-		console.error('Error logging in: ', error);
-		return false;
-	}
-	return true;
-}
 

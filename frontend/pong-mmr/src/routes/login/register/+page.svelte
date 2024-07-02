@@ -20,7 +20,8 @@
 				department: department
 			},
 			async () => {
-				if (await login(email, password)) {
+				const isLoggedIn = await login({ email, password });
+				if (isLoggedIn) {
 					goto('/');
 				}
 			}
