@@ -10,9 +10,9 @@
 	/**
 	 * Represents a user.
 	 * @typedef {Object} User
-	 * @property {string} id - The id used to recognize a unique user.
+	 * @property {string} ID - The id used to recognize a unique user.
 	 * @property {string} Name - The name of the user.
-	 * @property {string} email - The user's email address.
+	 * @property {string} Email - The user's email address.
 	 * @property {number} games - The number of games the user has played.
 	 * @property {number} elo - The amount of elo points a given user has.
 	 */
@@ -21,6 +21,8 @@
 	 * Represents a filtered user with only the Name property.
 	 * @typedef {Object} FilteredUser
 	 * @property {string} Name - The name of the user.
+	 * @property {string} Email - The user's email address.
+	 * @property {string} ID - The id used to recognize a unique user.
 	 */
 
 	/** @type{Array<User>} */
@@ -36,6 +38,8 @@
 
 	let hasOpponent = false;
 
+	let emailIdMapping = new Map();
+
 	onMount(async () => {
 		const cookie = await getCookie();
 		const auth = cookie?.Authorization;
@@ -50,20 +54,26 @@
 				console.error('Error fetching employees:', error);
 			});
 
+		console.log('Employees:', employees);
+
 		filteredEmployees = employees.map((/**@type {User}*/ user) => ({
-			Name: user.Name
+			Name: user.Name,
+			Email: user.Email,
+			ID: user.ID
 		}));
 
-		userSearchOptions = createUserSearchOptions(filteredEmployees.map((user) => user.Name));
+		emailIdMapping = new Map(filteredEmployees.map((user) => [user.Email, [user.ID, user.Name]]));
+
+		userSearchOptions = createUserSearchOptions(filteredEmployees);
 	});
 
 	/**
-	 * @param employeeNames {Array<string>}
+	 * @param filteredUsers {Array<FilteredUser>}
 	 */
-	function createUserSearchOptions(employeeNames) {
+	function createUserSearchOptions(filteredUsers) {
 		const userSearchOptions = [];
-		for (const name of employeeNames) {
-			userSearchOptions.push({ label: name, value: name, keywords: 'plain basic' });
+		for (const user of filteredUsers) {
+			userSearchOptions.push({ label: user.Email, value: user.Name, keywords: 'plain basic' });
 		}
 		return userSearchOptions;
 	}
@@ -80,6 +90,9 @@
 	 */
 	function onUserSelect(event) {
 		userSelect = event.detail.label;
+		const selectedUser = emailIdMapping.get(userSelect);
+		console.log('Selected userId:', selectedUser[0]);
+		console.log('Selected userName:', selectedUser[1]);
 		hasOpponent = !hasOpponent;
 	}
 </script>
