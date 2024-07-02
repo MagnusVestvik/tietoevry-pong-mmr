@@ -6,51 +6,42 @@
 	import { goto } from '$app/navigation';
 	import { getAllEmployees } from '$lib/getUsers';
 	import { getCookie } from '$lib/auth';
-	import { getCookies } from '$lib/userFunctions';
 
 	/**
 	 * Represents a user.
 	 * @typedef {Object} User
 	 * @property {string} id - The id used to recognize a unique user.
 	 * @property {string} Name - The name of the user.
-	 * @property {string} email - The users email address
-	 * @property {number} games - The number of games the user have played
-	 * @property {number} elo - The amount of elo points a given user have
+	 * @property {string} email - The user's email address.
+	 * @property {number} games - The number of games the user has played.
+	 * @property {number} elo - The amount of elo points a given user has.
 	 */
 
 	/**
-	 *@type{Array<User>}
+	 * Represents a filtered user with only the Name property.
+	 * @typedef {Object} FilteredUser
+	 * @property {string} Name - The name of the user.
 	 */
+
+	/** @type{Array<User>} */
 	let employees = [];
 
-	/**
-	 * @type {{ label: string; value: string; keywords: string; }[]}
-	 */
+	/** @type{Array<FilteredUser>} */
+	let filteredEmployees = [];
+
+	/** @type {{ label: string; value: string; keywords: string; }[]} */
 	let userSearchOptions;
 
 	let userSelect = '';
 
 	let hasOpponent = false;
 
-
-	async function deleteCookie() {
-		try {
-			const response = await fetch('/api/delete-cookie', {
-				method: 'DELETE'
-			});
-			if (response.ok) {
-				console.log('Cookie deleted successfully');
-			} else {
-				console.error('Failed to delete cookie');
-			}
-		} catch (error) {
-			console.error('Error:', error);
-		}
-	}
-
 	onMount(async () => {
 		const cookie = await getCookie();
-		const auth = cookie.Authorization;
+		const auth = cookie?.Authorization;
+		if (auth === undefined) {
+			return;
+		}
 		employees = await getAllEmployees(auth)
 			.then((response) => {
 				return response.body;
@@ -59,12 +50,11 @@
 				console.error('Error fetching employees:', error);
 			});
 
-		employees.forEach((user, index) => {
-			employees[index] = Object.fromEntries(
-				Object.entries(user).filter(([key, _]) => key === 'Name')
-			);
-		});
-		userSearchOptions = createUserSearchOptions(employees.map((user) => user.Name));
+		filteredEmployees = employees.map((/**@type {User}*/ user) => ({
+			Name: user.Name
+		}));
+
+		userSearchOptions = createUserSearchOptions(filteredEmployees.map((user) => user.Name));
 	});
 
 	/**
@@ -94,7 +84,6 @@
 	}
 </script>
 
-<button on:click={deleteCookie} class="btn variant-filled"> Cookie</button>
 <div class="flex flex-col items-center mt-10 h-screen w-screen">
 	<Sparkles
 		text="Pong MMR: Find Your Ceiling"

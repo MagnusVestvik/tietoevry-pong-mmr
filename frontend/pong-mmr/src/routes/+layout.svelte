@@ -2,29 +2,34 @@
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import '../app.postcss';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
-	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
-	import { getCookie, parseJwt } from '$lib/auth';
+	import { getCookie, parseJwt, deleteCookie } from '$lib/auth';
 	import { goto } from '$app/navigation';
 
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-	/**
-	 * @type{string|null}
-	 */
-	let name = null;
+
+	/** @type{string | undefined} */
+	let name = undefined;
+
+	/** @type{{Authorization?:string} | undefined} */
+	let cookie = undefined;
 
 	onMount(async () => {
-		const cookie = await getCookie();
-		if (cookie) {
-			const jwt = cookie.Authorization;
-			if (!jwt) return;
-			name = parseJwt(jwt).name; // TODO: fix typing
-		}
+		cookie = await getCookie();
 	});
 
+	$: {
+		if (cookie?.Authorization) {
+			const payload = parseJwt(cookie.Authorization);
+			name = payload.name;
+		} else {
+			name = undefined;
+		}
+	}
 	async function logout() {
+		deleteCookie();
 		goto('/login');
 	}
 </script>
@@ -42,8 +47,9 @@
 					{#if !name}
 						<a class="btn btn-sm variant-ghost-surface" href="/login">Sign in</a>
 					{:else}
-						<button class="btn btn-sm variant-ghost-surface" on:click={logout}>Logout</button>
-						<!--  TODO: lag log out logikk-->
+						<button class="btn btn-sm variant-ghost-surface" on:click|preventDefault={logout}
+							>Logout</button
+						>
 					{/if}
 				</div>
 			</svelte:fragment>

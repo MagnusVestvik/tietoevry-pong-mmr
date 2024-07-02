@@ -1,4 +1,12 @@
 import ApiClient from '../generated/src/ApiClient'; import EmployeeApi from '../generated/src/api/EmployeeApi';
+
+/**
+ * @typedef {Object} User
+ * @property {string} name - The users name
+ * @property {string} department - The department the user works in
+ */
+
+
 /**
  * @type {ApiClient}
  */
@@ -43,7 +51,8 @@ export function getAllEmployees(jwt) {
 	}
 
 	return new Promise((resolve, reject) => {
-		employeeApi.apiEmployeesGet((/** @type {any} */ err, /** @type {any} */ data, /** @type {any} */ response) => { // TODO: fix typing
+		employeeApi.apiEmployeesGet((/** @type {Error} */ err, /** @type {undefined} */ _, /** @type {Promise<Array<User>>} */ response) => {
+			console.log('all employees response', response);
 			if (err) {
 				console.error(err);
 				reject(err);

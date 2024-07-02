@@ -2,6 +2,8 @@ import { goto } from "$app/navigation";
 import ApiClient from "../generated/src/ApiClient";
 import AuthApi from "../generated/src/api/AuthApi";
 
+
+
 /**
  * @type {ApiClient}
  */
@@ -32,14 +34,23 @@ function getAuthApiClient() {
 	return authApiClient;
 }
 
-// TODO: fix typing
 /**
- * @param {any} user
+ * @typedef {Object} User
+ * @property {string} email - The users email
+ * @property {string} name - The users name
+ * @property {string} password - The users password
+ * @property {string} department - The department the user works in
+ */
+
+/**
+ * @param {User} user
  */
 export async function login(user) {
 	return new Promise((resolve, reject) => {
 		const authApiClient = getAuthApiClient();
-		authApiClient.apiLoginPost(user, async (/** @type {any} */ error, /** @type {any} */ _, /** @type {{ body: { token: any; }; }} */ response) => {
+
+		authApiClient.apiLoginPost(user, async (/** @type {Error} */ error, /** @type {undefined} */ _, /** @type {{ body: { token: any; }; }} */ response) => {
+			console.log('login response', response)
 			if (error) {
 				console.error('Error logging in: ', error);
 				reject(error);
@@ -63,6 +74,12 @@ export async function login(user) {
 	});
 }
 
+/**
+ * Retrieves a cookie from the server.
+ * 
+ * @returns {Promise<{Authorization?: string} | undefined>} A promise that resolves to an object with an optional Authorization property if successful, or undefined if an error occurs.
+ * @throws {Error} If the server responds with a non-OK status.
+ */
 export async function getCookie() {
 	try {
 		const response = await fetch('/api/get-cookie', {
@@ -83,7 +100,7 @@ export async function getCookie() {
 /**
  * Decodes a JWT token and returns its payload as a JSON object.
  * @param {string} token - The JWT token to decode.
- * @returns {Object} The decoded payload.
+ * @returns {{name: string}} The decoded payload.
  */
 export function parseJwt(token) {
 	var base64Url = token.split('.')[1];
@@ -99,6 +116,21 @@ export function parseJwt(token) {
 	);
 
 	return JSON.parse(jsonPayload);
+}
+
+export async function deleteCookie() {
+	try {
+		const response = await fetch('/api/delete-cookie', {
+			method: 'DELETE'
+		});
+		if (response.ok) {
+			console.log('Cookie deleted successfully');
+		} else {
+			console.error('Failed to delete cookie');
+		}
+	} catch (error) {
+		console.error('Error:', error);
+	}
 }
 
 

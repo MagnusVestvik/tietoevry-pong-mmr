@@ -1,5 +1,3 @@
-import { goto } from '$app/navigation';
-import { login } from './auth';
 
 /**
  * @typedef {Object} User
