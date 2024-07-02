@@ -6,6 +6,7 @@
 	import { goto } from '$app/navigation';
 	import { getAllEmployees } from '$lib/getUsers';
 	import { getCookie } from '$lib/auth';
+	import { opponent } from '$lib/store';
 
 	/**
 	 * Represents a user.
@@ -91,8 +92,7 @@
 	function onUserSelect(event) {
 		userSelect = event.detail.label;
 		const selectedUser = emailIdMapping.get(userSelect);
-		console.log('Selected userId:', selectedUser[0]);
-		console.log('Selected userName:', selectedUser[1]);
+		opponent.set(selectedUser);
 		hasOpponent = !hasOpponent;
 	}
 </script>

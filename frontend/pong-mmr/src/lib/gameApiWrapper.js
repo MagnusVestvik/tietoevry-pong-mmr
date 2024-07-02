@@ -1,4 +1,4 @@
-import ApiClient from '../generated/src/ApiClient'; import EmployeeApi from '../generated/src/api/EmployeeApi';
+import ApiClient from '../generated/src/ApiClient';
 import GameApi from '../generated/src/api/GameApi';
 import Game from '../generated/src/model/Game';
 /**
@@ -39,21 +39,21 @@ export function getGameApiClient(jwt) {
  * @param {Game} game
  * @param {string} jwt
  */
-function submitGame(jwt, game) {
-    if (!gameApi) {
-        gameApi = getGameApiClient(jwt);
-    }
+export async function submitGame(jwt, game) {
+	if (!gameApi) {
+		gameApi = getGameApiClient(jwt);
+	}
 
-    return new Promise((resolve, reject) => {
-        gameApi.apiGamesPost(game, (/** @type {any} */ err, /** @type {any} */ data, /** @type {any} */ response) => {
-            if (err) {
-                console.error(err);
-                reject(err);
-            } else {
-                resolve(response);
-            }
-        });
-    });
+	return new Promise((resolve, reject) => {
+		gameApi.apiGamesPost(game, (/** @type {any} */ err, /** @type {any} */ data, /** @type {any} */ response) => {
+			if (err) {
+				console.error(err);
+				reject(err);
+			} else {
+				resolve(response);
+			}
+		});
+	});
 }
 
 

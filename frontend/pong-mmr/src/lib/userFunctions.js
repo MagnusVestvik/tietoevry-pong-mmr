@@ -7,6 +7,8 @@
  * @property {string} department - The department the user works in
  */
 
+import { getCookie, parseJwt } from "./auth";
+
 /**
  * Sends a post request to backend to create the user object and save it in the database
  * @param {User} user - the user object
@@ -47,4 +49,31 @@ export async function createUser(user, callback) {
 export function getCookies() {
 	const cookie = document.cookie;
 	return cookie;
+}
+
+export async function getUserId() {
+	const cookie = await getCookie();
+	let id;
+	if (cookie) {
+		const data = await cookie.json();
+		const jwt = data.Authorization;
+		if (jwt) {
+			id = parseJwt(jwt).id;
+		}
+	}
+	return id;
+}
+
+export async function getName() {
+	const cookie = await getCookie();
+	let name;
+	if (cookie) {
+		const data = await cookie.json();
+		const jwt = data.Authorization;
+		if (jwt) {
+			name = parseJwt(jwt).name;
+		}
+	}
+	console.log('Name: ', name);
+	return name;
 }
