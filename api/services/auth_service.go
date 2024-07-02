@@ -10,8 +10,8 @@ import (
 
 	weberrors "github.com/MagnusV9/tietoevry-pong-mmr/api/errors"
 
-	"github.com/golang-jwt/jwt/v5"
 	"github.com/MagnusV9/tietoevry-pong-mmr/api/repos"
+	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/argon2"
 )
 
@@ -84,6 +84,7 @@ func (as *AuthService) Login(email, pass string) (*string, error) {
 
 	claims := jwt.MapClaims{
 		"sub":  employee.Email,
+		"id":   employee.ID,
 		"name": employee.Name,
 		"exp":  time.Now().Add(time.Hour * 72).Unix(),
 	}

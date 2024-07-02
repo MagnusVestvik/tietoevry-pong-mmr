@@ -3,13 +3,23 @@
 	import Pong from '$lib/components/Pong.svelte'; // TODO: refaktorer possisjonen til component folder
 	//import submitGame from '$lib/gameApiWrapper.js'
 	import Game from '../../../src/generated/src/model/Game';
+	import { getCookie, parseJwt } from '$lib/auth';
 	//import Employee from '../../../src/generated/src/model/Employee';
 
 	let player1Score = 0;
 	let player2Score = 0;
 
-	function createAndPostGame() {
-		//get jwt
+	async function createAndPostGame() {
+		const cookie = await getCookie();
+		if (cookie) {
+			const data = await cookie.json();
+			const jwt = data.Authorization;
+			let id;
+			if (jwt) {
+				id = parseJwt(jwt).id;
+			}
+		}
+		
 		//create game with the employee ids and scores
 		//game = new Game(player1Score, player2Score, employee1, employee2)
 		//submitGame(game, jwt)
