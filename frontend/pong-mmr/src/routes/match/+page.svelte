@@ -1,8 +1,19 @@
 <script>
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import Pong from '$lib/components/Pong.svelte'; // TODO: refaktorer possisjonen til component folder
+	//import submitGame from '$lib/gameApiWrapper.js'
+	import Game from '../../../src/generated/src/model/Game';
+	//import Employee from '../../../src/generated/src/model/Employee';
+
 	let player1Score = 0;
 	let player2Score = 0;
+
+	function createAndPostGame() {
+		//get jwt
+		//create game with the employee ids and scores
+		//game = new Game(player1Score, player2Score, employee1, employee2)
+		//submitGame(game, jwt)
+	}
 </script>
 
 <form class="flex flex-col items-center justify-center min-h-screen">
@@ -18,7 +29,7 @@
 			</header>
 			<section class="flex flex-col p-4 items-center">
 				<h1>Score: {player1Score}</h1>
-				<div class="flex flex-col">
+				<div class="flex flex-row">
 					<button class="btn variant-filled m-1" on:click={() => player1Score++}>+</button>
 					<button class="btn variant-filled m-1" on:click={() => player1Score--}>-</button>
 				</div>
@@ -36,7 +47,7 @@
 			</header>
 			<section class="flex flex-col p-4 items-center">
 				<h1>Score: {player2Score}</h1>
-				<div class="flex flex-col">
+				<div class="flex flex-row">
 					<button class="btn variant-filled m-1" on:click={() => player2Score++}>+</button>
 					<button class="btn variant-filled m-1" on:click={() => player2Score--}>-</button>
 				</div>
@@ -44,5 +55,5 @@
 			</section>
 		</div>
 	</div>
-	<button class="btn variant-filled m-4 max-w-fit">Submit</button>
+	<button on:click={createAndPostGame} class="btn variant-filled m-4 max-w-fit">Submit</button>
 </form>
