@@ -7,7 +7,7 @@ require (
 	github.com/gofiber/swagger v1.0.0
 	github.com/swaggo/swag v1.16.3
 	gorm.io/driver/postgres v1.5.6
-	gorm.io/gorm v1.25.7
+	gorm.io/gorm v1.25.10
 )
 
 require github.com/MicahParks/keyfunc/v2 v2.1.0 // indirect

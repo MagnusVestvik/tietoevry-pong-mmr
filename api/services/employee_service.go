@@ -84,8 +84,8 @@ func (es *EmployeeService) UpdateEmployee(jwt *models.JWT, id uuid.UUID, updated
 }
 
 func (es *EmployeeService) UpdateEmployeeElo(jwt *models.JWT, game *models.Game) error {
-	e1, _ := es.GetEmployee(jwt, game.Employee1ID)
-	e2, _ := es.GetEmployee(jwt, game.Employee2ID)
+	e1, _ := es.GetEmployee(jwt, game.Employees[0].ID)
+	e2, _ := es.GetEmployee(jwt, game.Employees[1].ID)
 
 	winner, loser := e1, e2
 	if game.Employee2Score > game.Employee1Score {
