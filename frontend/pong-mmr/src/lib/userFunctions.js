@@ -46,20 +46,13 @@ export async function createUser(user, callback) {
 };
 
 
-export function getCookies() {
-	const cookie = document.cookie;
-	return cookie;
-}
-
 export async function getUserId() {
 	const cookie = await getCookie();
 	let id;
-	if (cookie) {
-		const data = await cookie.json();
-		const jwt = data.Authorization;
-		if (jwt) {
-			id = parseJwt(jwt).id;
-		}
+	if (!cookie) return;
+	const jwt = cookie.Authorization;
+	if (jwt) {
+		id = parseJwt(jwt).id;
 	}
 	return id;
 }
@@ -67,12 +60,11 @@ export async function getUserId() {
 export async function getName() {
 	const cookie = await getCookie();
 	let name;
-	if (cookie) {
-		const data = await cookie.json();
-		const jwt = data.Authorization;
-		if (jwt) {
-			name = parseJwt(jwt).name;
-		}
+	if (!cookie) return;
+
+	const jwt = cookie.Authorization;
+	if (jwt) {
+		name = parseJwt(jwt).name;
 	}
 	console.log('Name: ', name);
 	return name;

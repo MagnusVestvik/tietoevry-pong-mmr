@@ -20,6 +20,7 @@
 	/** @type {Game | null} */
 	let game = null;
 
+	/** @type {string | undefined} */
 	let player1Name = '';
 
 	onMount(async () => {
@@ -27,12 +28,13 @@
 		const userId = await getUserId();
 		game = new Game(userId, 0, player2[0], 0);
 		player1Name = await getName();
+		console.log('this is the playernaem: ' + player1Name);
 	});
 
 	async function handleGameSubmit() {
-		const cookies = await getCookie();
+		const cookie = await getCookie();
 		if (game === null) return;
-		await submitGame(cookies.Authorization, game);
+		await submitGame(cookie.Authorization, game);
 	}
 </script>
 
