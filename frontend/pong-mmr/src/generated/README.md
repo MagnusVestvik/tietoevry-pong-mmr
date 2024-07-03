@@ -99,12 +99,18 @@ Class | Method | HTTP request | Description
 *TietoevryPongMmr.GameApi* | [**apiGamesIdDelete**](docs/GameApi.md#apiGamesIdDelete) | **DELETE** /api/games/{id} | Delete an game by ID
 *TietoevryPongMmr.GameApi* | [**apiGamesIdGet**](docs/GameApi.md#apiGamesIdGet) | **GET** /api/games/{id} | Get an game by ID
 *TietoevryPongMmr.GameApi* | [**apiGamesPost**](docs/GameApi.md#apiGamesPost) | **POST** /api/games | Create a new game
+*TietoevryPongMmr.TournamentApi* | [**apiTournamentsGet**](docs/TournamentApi.md#apiTournamentsGet) | **GET** /api/tournaments | Get all tournaments
+*TietoevryPongMmr.TournamentApi* | [**apiTournamentsIdDelete**](docs/TournamentApi.md#apiTournamentsIdDelete) | **DELETE** /api/tournaments/{id} | Delete a tournament
+*TietoevryPongMmr.TournamentApi* | [**apiTournamentsIdGet**](docs/TournamentApi.md#apiTournamentsIdGet) | **GET** /api/tournaments/{id} | Get a tournament by ID
+*TietoevryPongMmr.TournamentApi* | [**apiTournamentsIdPut**](docs/TournamentApi.md#apiTournamentsIdPut) | **PUT** /api/tournaments/{id} | Update a tournament
+*TietoevryPongMmr.TournamentApi* | [**apiTournamentsPost**](docs/TournamentApi.md#apiTournamentsPost) | **POST** /api/tournaments | Create a new tournament
 
 ## Documentation for Models
 
  - [TietoevryPongMmr.Employee](docs/Employee.md)
  - [TietoevryPongMmr.Game](docs/Game.md)
  - [TietoevryPongMmr.LoginRequest](docs/LoginRequest.md)
+ - [TietoevryPongMmr.Tournament](docs/Tournament.md)
  - [TietoevryPongMmr.UpdateEmployee](docs/UpdateEmployee.md)
 
 ## Documentation for Authorization

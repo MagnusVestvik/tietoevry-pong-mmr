@@ -13,6 +13,7 @@
  *
  */
 import ApiClient from '../ApiClient';
+import Employee from './Employee';
 
 /**
  * The Game model module.
@@ -25,15 +26,11 @@ export default class Game {
    * Game information between an employee and an user
    * @alias module:model/Game
    * @class
-   * @param employee1ID {String} 
    * @param employee1Score {Number} 
-   * @param employee2ID {String} 
    * @param employee2Score {Number} 
    */
-  constructor(employee1ID, employee1Score, employee2ID, employee2Score) {
-    this.employee1ID = employee1ID;
+  constructor(employee1Score, employee2Score) {
     this.employee1Score = employee1Score;
-    this.employee2ID = employee2ID;
     this.employee2Score = employee2Score;
   }
 
@@ -47,23 +44,18 @@ export default class Game {
   static constructFromObject(data, obj) {
     if (data) {
       obj = obj || new Game();
-      if (data.hasOwnProperty('employee1ID'))
-        obj.employee1ID = ApiClient.convertToType(data['employee1ID'], 'String');
       if (data.hasOwnProperty('employee1Score'))
         obj.employee1Score = ApiClient.convertToType(data['employee1Score'], 'Number');
-      if (data.hasOwnProperty('employee2ID'))
-        obj.employee2ID = ApiClient.convertToType(data['employee2ID'], 'String');
       if (data.hasOwnProperty('employee2Score'))
         obj.employee2Score = ApiClient.convertToType(data['employee2Score'], 'Number');
+      if (data.hasOwnProperty('employees'))
+        obj.employees = ApiClient.convertToType(data['employees'], [Employee]);
+      if (data.hasOwnProperty('tournamentID'))
+        obj.tournamentID = ApiClient.convertToType(data['tournamentID'], 'String');
     }
     return obj;
   }
 }
-
-/**
- * @member {String} employee1ID
- */
-Game.prototype.employee1ID = undefined;
 
 /**
  * @member {Number} employee1Score
@@ -71,12 +63,17 @@ Game.prototype.employee1ID = undefined;
 Game.prototype.employee1Score = undefined;
 
 /**
- * @member {String} employee2ID
- */
-Game.prototype.employee2ID = undefined;
-
-/**
  * @member {Number} employee2Score
  */
 Game.prototype.employee2Score = undefined;
+
+/**
+ * @member {Array.<module:model/Employee>} employees
+ */
+Game.prototype.employees = undefined;
+
+/**
+ * @member {String} tournamentID
+ */
+Game.prototype.tournamentID = undefined;
 

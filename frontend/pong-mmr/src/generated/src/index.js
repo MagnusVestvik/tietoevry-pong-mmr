@@ -16,10 +16,12 @@ import ApiClient from './ApiClient';
 import Employee from './model/Employee';
 import Game from './model/Game';
 import LoginRequest from './model/LoginRequest';
+import Tournament from './model/Tournament';
 import UpdateEmployee from './model/UpdateEmployee';
 import AuthApi from './api/AuthApi';
 import EmployeeApi from './api/EmployeeApi';
 import GameApi from './api/GameApi';
+import TournamentApi from './api/TournamentApi';
 
 /**
 * Object.<br>
@@ -78,6 +80,12 @@ export {
     LoginRequest,
 
     /**
+     * The Tournament model constructor.
+     * @property {module:model/Tournament}
+     */
+    Tournament,
+
+    /**
      * The UpdateEmployee model constructor.
      * @property {module:model/UpdateEmployee}
      */
@@ -99,5 +107,11 @@ export {
     * The GameApi service constructor.
     * @property {module:api/GameApi}
     */
-    GameApi
+    GameApi,
+
+    /**
+    * The TournamentApi service constructor.
+    * @property {module:api/TournamentApi}
+    */
+    TournamentApi
 };

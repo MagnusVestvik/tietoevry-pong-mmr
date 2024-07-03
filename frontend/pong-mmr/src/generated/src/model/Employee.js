@@ -13,6 +13,7 @@
  *
  */
 import ApiClient from '../ApiClient';
+import Game from './Game';
 
 /**
  * The Employee model module.
@@ -55,6 +56,8 @@ export default class Employee {
         obj.elo = ApiClient.convertToType(data['elo'], 'Number');
       if (data.hasOwnProperty('email'))
         obj.email = ApiClient.convertToType(data['email'], 'String');
+      if (data.hasOwnProperty('games'))
+        obj.games = ApiClient.convertToType(data['games'], [Game]);
       if (data.hasOwnProperty('name'))
         obj.name = ApiClient.convertToType(data['name'], 'String');
       if (data.hasOwnProperty('password'))
@@ -78,6 +81,11 @@ Employee.prototype.elo = undefined;
  * @member {String} email
  */
 Employee.prototype.email = undefined;
+
+/**
+ * @member {Array.<module:model/Game>} games
+ */
+Employee.prototype.games = undefined;
 
 /**
  * @member {String} name

@@ -629,6 +629,12 @@ const docTemplate = `{
                 "email": {
                     "type": "string"
                 },
+                "games": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Game"
+                    }
+                },
                 "name": {
                     "type": "string"
                 },
@@ -641,23 +647,24 @@ const docTemplate = `{
             "description": "Game information between an employee and an user",
             "type": "object",
             "required": [
-                "employee1ID",
                 "employee1Score",
-                "employee2ID",
                 "employee2Score"
             ],
             "properties": {
-                "employee1ID": {
-                    "type": "string"
-                },
                 "employee1Score": {
                     "type": "integer"
                 },
-                "employee2ID": {
-                    "type": "string"
-                },
                 "employee2Score": {
                     "type": "integer"
+                },
+                "employees": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Employee"
+                    }
+                },
+                "tournamentID": {
+                    "type": "string"
                 }
             }
         },
@@ -679,7 +686,15 @@ const docTemplate = `{
         },
         "Tournament": {
             "description": "Tournament account information",
-            "type": "object"
+            "type": "object",
+            "properties": {
+                "games": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Game"
+                    }
+                }
+            }
         },
         "UpdateEmployee": {
             "description": "UpdateEmployee account information",

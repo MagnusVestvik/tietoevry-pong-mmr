@@ -8,6 +8,10 @@ definitions:
         type: integer
       email:
         type: string
+      games:
+        items:
+          $ref: '#/definitions/Game'
+        type: array
       name:
         type: string
       password:
@@ -22,18 +26,18 @@ definitions:
   Game:
     description: Game information between an employee and an user
     properties:
-      employee1ID:
-        type: string
       employee1Score:
         type: integer
-      employee2ID:
-        type: string
       employee2Score:
         type: integer
+      employees:
+        items:
+          $ref: '#/definitions/Employee'
+        type: array
+      tournamentID:
+        type: string
     required:
-    - employee1ID
     - employee1Score
-    - employee2ID
     - employee2Score
     type: object
   LoginRequest:
@@ -49,6 +53,11 @@ definitions:
     type: object
   Tournament:
     description: Tournament account information
+    properties:
+      games:
+        items:
+          $ref: '#/definitions/Game'
+        type: array
     type: object
   UpdateEmployee:
     description: UpdateEmployee account information

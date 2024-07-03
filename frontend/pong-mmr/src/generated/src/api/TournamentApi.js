@@ -13,19 +13,18 @@
  *
  */
 import ApiClient from "../ApiClient";
-import Employee from '../model/Employee';
-import UpdateEmployee from '../model/UpdateEmployee';
+import Tournament from '../model/Tournament';
 
 /**
-* Employee service.
-* @module api/EmployeeApi
+* Tournament service.
+* @module api/TournamentApi
 * @version 0.1
 */
-export default class EmployeeApi {
+export default class TournamentApi {
 
     /**
-    * Constructs a new EmployeeApi. 
-    * @alias module:api/EmployeeApi
+    * Constructs a new TournamentApi. 
+    * @alias module:api/TournamentApi
     * @class
     * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
     * default to {@link module:ApiClient#instanc
@@ -36,20 +35,20 @@ export default class EmployeeApi {
     }
 
     /**
-     * Callback function to receive the result of the apiEmployeesGet operation.
-     * @callback moduleapi/EmployeeApi~apiEmployeesGetCallback
+     * Callback function to receive the result of the apiTournamentsGet operation.
+     * @callback moduleapi/TournamentApi~apiTournamentsGetCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Employee>{ data The data returned by the service call.
+     * @param {Array.<module:model/Tournament>{ data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get all employees
-     * Get all employees
-     * @param {module:api/EmployeeApi~apiEmployeesGetCallback} callback The callback function, accepting three arguments: error, data, response
+     * Get all tournaments
+     * Get all tournaments
+     * @param {module:api/TournamentApi~apiTournamentsGetCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    apiEmployeesGet(callback) {
+    apiTournamentsGet(callback) {
       
       let postBody = null;
 
@@ -69,34 +68,34 @@ export default class EmployeeApi {
       let authNames = [];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [Employee];
+      let returnType = [Tournament];
 
       return this.apiClient.callApi(
-        '/api/employees', 'GET',
+        '/api/tournaments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
     }
     /**
-     * Callback function to receive the result of the apiEmployeesIdDelete operation.
-     * @callback moduleapi/EmployeeApi~apiEmployeesIdDeleteCallback
+     * Callback function to receive the result of the apiTournamentsIdDelete operation.
+     * @callback moduleapi/TournamentApi~apiTournamentsIdDeleteCallback
      * @param {String} error Error message, if any.
      * @param data This operation does not return a value.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Delete an employee by ID
-     * Delete an employee by its ID
-     * @param {Number} id Employee ID
-     * @param {module:api/EmployeeApi~apiEmployeesIdDeleteCallback} callback The callback function, accepting three arguments: error, data, response
+     * Delete a tournament
+     * Delete a tournament
+     * @param {Number} id Tournament ID
+     * @param {module:api/TournamentApi~apiTournamentsIdDeleteCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    apiEmployeesIdDelete(id, callback) {
+    apiTournamentsIdDelete(id, callback) {
       
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling apiEmployeesIdDelete");
+        throw new Error("Missing the required parameter 'id' when calling apiTournamentsIdDelete");
       }
 
       let pathParams = {
@@ -118,32 +117,32 @@ export default class EmployeeApi {
       let returnType = null;
 
       return this.apiClient.callApi(
-        '/api/employees/{id}', 'DELETE',
+        '/api/tournaments/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
     }
     /**
-     * Callback function to receive the result of the apiEmployeesIdGet operation.
-     * @callback moduleapi/EmployeeApi~apiEmployeesIdGetCallback
+     * Callback function to receive the result of the apiTournamentsIdGet operation.
+     * @callback moduleapi/TournamentApi~apiTournamentsIdGetCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Employee{ data The data returned by the service call.
+     * @param {module:model/Tournament{ data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get an employee by ID
-     * Get an employee by its ID
-     * @param {Number} id Employee ID
-     * @param {module:api/EmployeeApi~apiEmployeesIdGetCallback} callback The callback function, accepting three arguments: error, data, response
+     * Get a tournament by ID
+     * Get a tournament by its ID
+     * @param {Number} id Tournament ID
+     * @param {module:api/TournamentApi~apiTournamentsIdGetCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    apiEmployeesIdGet(id, callback) {
+    apiTournamentsIdGet(id, callback) {
       
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling apiEmployeesIdGet");
+        throw new Error("Missing the required parameter 'id' when calling apiTournamentsIdGet");
       }
 
       let pathParams = {
@@ -162,39 +161,40 @@ export default class EmployeeApi {
       let authNames = [];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Employee;
+      let returnType = Tournament;
 
       return this.apiClient.callApi(
-        '/api/employees/{id}', 'GET',
+        '/api/tournaments/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
     }
     /**
-     * Callback function to receive the result of the apiEmployeesIdPut operation.
-     * @callback moduleapi/EmployeeApi~apiEmployeesIdPutCallback
+     * Callback function to receive the result of the apiTournamentsIdPut operation.
+     * @callback moduleapi/TournamentApi~apiTournamentsIdPutCallback
      * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
+     * @param {module:model/Tournament{ data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Update an existing employee
-     * Update an existing employee by its ID
-     * @param {module:model/UpdateEmployee} body UpdateEmployee object
-     * @param {Number} id Employee ID
-     * @param {module:api/EmployeeApi~apiEmployeesIdPutCallback} callback The callback function, accepting three arguments: error, data, response
+     * Update a tournament
+     * Update a tournament
+     * @param {module:model/Tournament} body Tournament object
+     * @param {Number} id Tournament ID
+     * @param {module:api/TournamentApi~apiTournamentsIdPutCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    apiEmployeesIdPut(body, id, callback) {
+    apiTournamentsIdPut(body, id, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
       if (body === undefined || body === null) {
-        throw new Error("Missing the required parameter 'body' when calling apiEmployeesIdPut");
+        throw new Error("Missing the required parameter 'body' when calling apiTournamentsIdPut");
       }
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling apiEmployeesIdPut");
+        throw new Error("Missing the required parameter 'id' when calling apiTournamentsIdPut");
       }
 
       let pathParams = {
@@ -211,37 +211,37 @@ export default class EmployeeApi {
       };
 
       let authNames = [];
-      let contentTypes = ['application/json'];
-      let accepts = [];
-      let returnType = null;
+      let contentTypes = ['*/*'];
+      let accepts = ['application/json'];
+      let returnType = Tournament;
 
       return this.apiClient.callApi(
-        '/api/employees/{id}', 'PUT',
+        '/api/tournaments/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
     }
     /**
-     * Callback function to receive the result of the apiEmployeesPost operation.
-     * @callback moduleapi/EmployeeApi~apiEmployeesPostCallback
+     * Callback function to receive the result of the apiTournamentsPost operation.
+     * @callback moduleapi/TournamentApi~apiTournamentsPostCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Employee{ data The data returned by the service call.
+     * @param {module:model/Tournament{ data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Create a new employee
-     * Create a new employee
-     * @param {module:model/Employee} body Employee object
-     * @param {module:api/EmployeeApi~apiEmployeesPostCallback} callback The callback function, accepting three arguments: error, data, response
+     * Create a new tournament
+     * Create a new tournament
+     * @param {module:model/Tournament} body Tournament object
+     * @param {module:api/TournamentApi~apiTournamentsPostCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    apiEmployeesPost(body, callback) {
+    apiTournamentsPost(body, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
       if (body === undefined || body === null) {
-        throw new Error("Missing the required parameter 'body' when calling apiEmployeesPost");
+        throw new Error("Missing the required parameter 'body' when calling apiTournamentsPost");
       }
 
       let pathParams = {
@@ -260,10 +260,10 @@ export default class EmployeeApi {
       let authNames = [];
       let contentTypes = ['*/*'];
       let accepts = ['application/json'];
-      let returnType = Employee;
+      let returnType = Tournament;
 
       return this.apiClient.callApi(
-        '/api/employees', 'POST',
+        '/api/tournaments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
