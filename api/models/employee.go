@@ -23,3 +23,11 @@ type UpdateEmployee struct {
 	Elo        *int
 	Department *string
 } //@name UpdateEmployee
+
+// PlayerScore model info
+// @Description PlayerScore wrapper for employee in game
+type PlayerScore struct {
+	PlayerID uuid.UUID `gorm:"type:uuid;not null"`
+	Score    int       `gorm:"not null"`
+	Player   Employee  `gorm:"foreignKey:PlayerID"`
+}
