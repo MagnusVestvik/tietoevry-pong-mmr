@@ -32,17 +32,17 @@ func (as *GameService) GetGamesByEmployeeID(jwt *models.JWT, employeeID uuid.UUI
 }
 
 func (as *GameService) CreateGame(jwt *models.JWT, game *models.Game) error {
-	e1, err := as.employeeRepo.GetEmployee(game.Employees[0].ID)
+	e1, err := as.employeeRepo.GetEmployee(game.Player1ID)
 	if err != nil {
 		return weberrors.NewError(400, "invalid employee")
 	}
-	game.Employees[0] = *e1
+	game.Player1ID = e1.ID
 
-	e2, err := as.employeeRepo.GetEmployee(game.Employees[1].ID)
+	e2, err := as.employeeRepo.GetEmployee(game.Player2ID)
 	if err != nil {
-		return weberrors.NewError(500, "invalid employee")
+		return weberrors.NewError(400, "invalid employee")
 	}
-	game.Employees[1] = *e2
+	game.Player2ID = e2.ID
 
 	return as.gameRepo.CreateGame(game)
 }
