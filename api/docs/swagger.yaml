@@ -26,19 +26,16 @@ definitions:
   Game:
     description: Game information between an employee and an user
     properties:
-      employee1Score:
-        type: integer
-      employee2Score:
-        type: integer
-      employees:
-        items:
-          $ref: '#/definitions/Employee'
-        type: array
-      tournamentID:
+      p1_id:
         type: string
-    required:
-    - employee1Score
-    - employee2Score
+      p1_score:
+        $ref: '#/definitions/Score'
+      p2_id:
+        type: string
+      p2_score:
+        $ref: '#/definitions/Score'
+      tournament_id:
+        type: string
     type: object
   LoginRequest:
     description: Login request with email and password
@@ -50,6 +47,16 @@ definitions:
     required:
     - email
     - password
+    type: object
+  Score:
+    description: Score information between an employee and an user
+    properties:
+      match_id:
+        type: string
+      player_id:
+        type: string
+      score:
+        type: integer
     type: object
   Tournament:
     description: Tournament account information

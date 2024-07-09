@@ -637,24 +637,20 @@
         "Game": {
             "description": "Game information between an employee and an user",
             "type": "object",
-            "required": [
-                "employee1Score",
-                "employee2Score"
-            ],
             "properties": {
-                "employee1Score": {
-                    "type": "integer"
+                "p1_id": {
+                    "type": "string"
                 },
-                "employee2Score": {
-                    "type": "integer"
+                "p1_score": {
+                    "$ref": "#/definitions/Score"
                 },
-                "employees": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Employee"
-                    }
+                "p2_id": {
+                    "type": "string"
                 },
-                "tournamentID": {
+                "p2_score": {
+                    "$ref": "#/definitions/Score"
+                },
+                "tournament_id": {
                     "type": "string"
                 }
             }
@@ -672,6 +668,21 @@
                 },
                 "password": {
                     "type": "string"
+                }
+            }
+        },
+        "Score": {
+            "description": "Score information between an employee and an user",
+            "type": "object",
+            "properties": {
+                "match_id": {
+                    "type": "string"
+                },
+                "player_id": {
+                    "type": "string"
+                },
+                "score": {
+                    "type": "integer"
                 }
             }
         },

@@ -2,7 +2,6 @@ package controllers
 
 import (
 	weberrors "github.com/MagnusV9/tietoevry-pong-mmr/api/errors"
-
 	"github.com/MagnusV9/tietoevry-pong-mmr/api/models"
 	"github.com/MagnusV9/tietoevry-pong-mmr/api/services"
 	"github.com/gofiber/fiber/v2"
