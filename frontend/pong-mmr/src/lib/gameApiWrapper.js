@@ -23,8 +23,9 @@ function getGameClient() {
 /**
  * @param {string} jwt
  */
-export function getGameApiClient() {
+export function getGameApiClient(jwt) {
 	const client = getGameClient();
+	client.defaultHeaders = { 'Authorization': `Bearer ${jwt}` };
 
 	// @ts-ignore TODO: fix
 	if (gameApi) {
@@ -38,9 +39,9 @@ export function getGameApiClient() {
  * @param {Game} game
  * @param {string} jwt
  */
-export async function submitGame(game) {
+export async function submitGame(jwt, game) {
 	if (!gameApi) {
-		gameApi = getGameApiClient();
+		gameApi = getGameApiClient(jwt);
 	}
 
 	return new Promise((resolve, reject) => {

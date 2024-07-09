@@ -7,6 +7,7 @@
 	import { submitGame } from '$lib/gameApiWrapper';
 	import { getCookie } from '$lib/auth';
 	import Game from '../../generated/src/model/Game';
+	import Score from '../../generated/src/model/Score';
 
 	/** @type {[string, string] | null} */
 	let player2;
@@ -26,19 +27,23 @@
 	onMount(async () => {
 		if (player2 === null) return;
 		const userId = await getUserId();
-		game = new Game({
+		game = Game.constructFromObject({
 			p1_id: userId,
 			p2_id: player2[0],
-			p1_score: { score: 0 },
-			p2_score: { score: 0 }
+			p1_score: Score.constructFromObject({ score: 0 }),
+			p2_score: Score.constructFromObject({ score: 0 })
 		});
-
 		player1Name = await getName();
+		console.log('player2', player2);
 	});
 
 	async function handleGameSubmit() {
 		if (game === null) return;
-		await submitGame(game);
+		console.log('submitting game', game);
+		const cookie = await getCookie();
+		const auth = cookie?.Authorization;
+		const response = await submitGame(auth, game);
+		console.log('responded with', response);
 	}
 </script>
 
@@ -54,12 +59,12 @@
 				/>
 			</header>
 			<section class="flex flex-col p-4 items-center">
-				<h1>Score: {game?.employee1Score ?? 0}</h1>
+				<h1>Score: {game?.p1Score.score ?? 0}</h1>
 				<div class="flex flex-row">
-					<button class="btn variant-filled m-1" on:click={() => game && game.employee1Score++}
+					<button class="btn variant-filled m-1" on:click={() => game && game.p1Score.score++}
 						>+</button
 					>
-					<button class="btn variant-filled m-1" on:click={() => game && game.employee1Score--}
+					<button class="btn variant-filled m-1" on:click={() => game && game.p1Score.score--}
 						>-</button
 					>
 				</div>
@@ -77,7 +82,7 @@
 					/>
 				</header>
 				<section class="flex flex-col p-4 items-center">
-					<h1>Score: {game?.employee2Score ?? 0}</h1>
+					<h1>Score: {game?.p2Score.score ?? 0}</h1>
 					<div class="flex flex-row">
 						<button class="btn variant-filled m-1" on:click={() => game && game.p2Score.score++}
 							>+</button
