@@ -11,7 +11,7 @@
 	/** @type {[string, string] | null} */
 	let player2;
 	const unsubscribe = opponent.subscribe((player) => {
-		player2 = player;
+		player2 = player; // TODO: endre slik at player 2 er objekt og ikke array
 	});
 	onDestroy(() => {
 		unsubscribe();
@@ -26,15 +26,19 @@
 	onMount(async () => {
 		if (player2 === null) return;
 		const userId = await getUserId();
-		game = new Game(userId, 0, player2[0], 0);
+		game = new Game({
+			p1_id: userId,
+			p2_id: player2[0],
+			p1_score: { score: 0 },
+			p2_score: { score: 0 }
+		});
+
 		player1Name = await getName();
-		console.log('this is the playernaem: ' + player1Name);
 	});
 
 	async function handleGameSubmit() {
-		const cookie = await getCookie();
 		if (game === null) return;
-		await submitGame(cookie.Authorization, game);
+		await submitGame(game);
 	}
 </script>
 
@@ -75,10 +79,10 @@
 				<section class="flex flex-col p-4 items-center">
 					<h1>Score: {game?.employee2Score ?? 0}</h1>
 					<div class="flex flex-row">
-						<button class="btn variant-filled m-1" on:click={() => game && game.employee2Score++}
+						<button class="btn variant-filled m-1" on:click={() => game && game.p2Score.score++}
 							>+</button
 						>
-						<button class="btn variant-filled m-1" on:click={() => game && game.employee2Score--}
+						<button class="btn variant-filled m-1" on:click={() => game && game.p2Score.score--}
 							>-</button
 						>
 					</div>

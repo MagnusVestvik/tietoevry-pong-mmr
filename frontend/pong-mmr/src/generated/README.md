@@ -110,6 +110,7 @@ Class | Method | HTTP request | Description
  - [TietoevryPongMmr.Employee](docs/Employee.md)
  - [TietoevryPongMmr.Game](docs/Game.md)
  - [TietoevryPongMmr.LoginRequest](docs/LoginRequest.md)
+ - [TietoevryPongMmr.Score](docs/Score.md)
  - [TietoevryPongMmr.Tournament](docs/Tournament.md)
  - [TietoevryPongMmr.UpdateEmployee](docs/UpdateEmployee.md)
 

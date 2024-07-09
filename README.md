@@ -26,3 +26,8 @@ This project is a web platform for tracking and ranking players' Matchmaking Rat
    ```bash
    cd api && go run main.go
    ```
+NB: If you need to regenerate the client from the OpenAPI spec, you can run:  
+
+   ```bash
+npm run generate-client
+   ```

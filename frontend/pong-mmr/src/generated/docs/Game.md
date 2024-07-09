@@ -3,7 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**employee1Score** | **Number** |  | 
-**employee2Score** | **Number** |  | 
-**employees** | [**[Employee]**](Employee.md) |  | [optional] 
-**tournamentID** | **String** |  | [optional] 
+**p1Id** | **String** |  | [optional] 
+**p1Score** | [**Score**](Score.md) |  | [optional] 
+**p2Id** | **String** |  | [optional] 
+**p2Score** | [**Score**](Score.md) |  | [optional] 
+**tournamentId** | **String** |  | [optional] 

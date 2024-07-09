@@ -23,11 +23,10 @@ function getGameClient() {
 /**
  * @param {string} jwt
  */
-export function getGameApiClient(jwt) {
+export function getGameApiClient() {
 	const client = getGameClient();
 
 	// @ts-ignore TODO: fix
-	client.defaultHeaders = { 'Authorization': `Bearer ${jwt}` };
 	if (gameApi) {
 		return gameApi;
 	}
@@ -39,13 +38,13 @@ export function getGameApiClient(jwt) {
  * @param {Game} game
  * @param {string} jwt
  */
-export async function submitGame(jwt, game) {
+export async function submitGame(game) {
 	if (!gameApi) {
-		gameApi = getGameApiClient(jwt);
+		gameApi = getGameApiClient();
 	}
 
 	return new Promise((resolve, reject) => {
-		gameApi.apiGamesPost(game, (/** @type {any} */ err, /** @type {any} */ data, /** @type {any} */ response) => {
+		gameApi.apiGamesPost(game, (/** @type {any} */ err, /** @type {any} */ _, /** @type {any} */ response) => {
 			if (err) {
 				console.error(err);
 				reject(err);
@@ -55,5 +54,6 @@ export async function submitGame(jwt, game) {
 		});
 	});
 }
+
 
 
