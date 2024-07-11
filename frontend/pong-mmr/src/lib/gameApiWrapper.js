@@ -49,6 +49,9 @@ export async function submitGame(jwt, game) {
 		gameApi = getGameApiClient(jwt);
 	}
 
+	game = JSON.parse(game);
+	console.log(game)
+
 
 	return new Promise((resolve, reject) => {
 		gameApi.apiGamesPost(game, (/** @type {any} */ err, /** @type {any} */ _, /** @type {any} */ response) => {

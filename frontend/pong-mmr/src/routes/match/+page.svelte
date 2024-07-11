@@ -4,10 +4,10 @@
 	import { getUserId, getName } from '$lib/userFunctions';
 	import { opponent } from '$lib/store';
 	import { onDestroy, onMount } from 'svelte';
-	import { submitGame } from '$lib/gameApiWrapper';
+	import { goto } from '$app/navigation';
+	import { submitMatch } from '$lib/game';
+	import { submitedMatch } from '$lib/store';
 	import { getCookie } from '$lib/auth';
-	import Game from '../../generated/src/model/Game';
-	import Score from '../../generated/src/model/Score';
 
 	/** @type {[string, string] | null} */
 	let player2;
@@ -18,33 +18,43 @@
 		unsubscribe();
 	});
 
+	let matchSubmitted;
+
+	const unsubscribeMatch = submitedMatch.subscribe((submitedMatch) => {
+		matchSubmitted = submitedMatch;
+	});
+
+	onDestroy(() => {
+		unsubscribeMatch();
+	});
+
 	let game;
 
 	/** @type {string | undefined} */
 	let player1Name = '';
 
-	// TODO: tror feil er at body ikke blir sendt som et json object...
 	onMount(async () => {
 		if (player2 === null) return;
 		const userId = await getUserId();
-		game = Game.constructFromObject({
-			player1ID: userId,
-			player2ID: player2[0],
-			player2Score: Score.constructFromObject({ score: 0 }),
-			player1Score: Score.constructFromObject({ score: 0 })
-		});
+
+		game = {
+			Player1ID: userId,
+			Player2ID: player2[0],
+			Score1: 0,
+			Score2: 0
+		};
 
 		player1Name = await getName();
-		console.log('player2', player2);
 	});
 
 	async function handleGameSubmit() {
-		if (game === null) return;
-		console.log('submitting game', game);
 		const cookie = await getCookie();
-		const auth = cookie?.Authorization;
-		const response = await submitGame(auth, game);
-		console.log('responded with', response);
+		const jwt = cookie.Authorization;
+
+		response = await submitMatch(jwt, game, () => {
+			matchSubmitted = false;
+			goto('/');
+		});
 	}
 </script>
 

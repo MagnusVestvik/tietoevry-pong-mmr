@@ -5,19 +5,13 @@ import (
 )
 
 // Game model info
-// @Description Game information between an employee and an user
+// @Description Game information between two employees
 type Game struct {
-	ID           uuid.UUID `gorm:"primary_key;unique;type:uuid;" swaggerignore:"true"`
-	Player1ID    uuid.UUID
-	Player2ID    uuid.UUID
-	Player1Score Score `gorm:"foreignKey:MatchID,PlayerID;references:ID,Player1ID" `
-	Player2Score Score `gorm:"foreignKey:MatchID,PlayerID;references:ID,Player2ID" `
+	ID        uuid.UUID `gorm:"primaryKey;type:uuid" swaggerignore:"true"`
+	Player1ID uuid.UUID `gorm:"type:uuid"`
+	Player2ID uuid.UUID `gorm:"type:uuid"`
+	Player1   Employee  `gorm:"foreignKey:Player1ID"`
+	Player2   Employee  `gorm:"foreignKey:Player2ID"`
+	Score1    int
+	Score2    int
 } //@name Game
-
-// Score model info
-// @Description Score information between an employee and an user
-type Score struct {
-	PlayerID uuid.UUID `gorm:"primary_key" swaggerignore:"true"`
-	MatchID  uuid.UUID `gorm:"primary_key" swaggerignore:"true"`
-	Score    int
-} //@name Score

@@ -2,11 +2,12 @@
 	import { popup } from '@skeletonlabs/skeleton';
 	import Sparkles from '$lib/components/Sparkles.svelte';
 	import { Autocomplete } from '@skeletonlabs/skeleton';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { getAllEmployees } from '$lib/getUsers';
 	import { getCookie } from '$lib/auth';
 	import { opponent } from '$lib/store';
+	import { submitedMatch } from '$lib/store';
 
 	/**
 	 * Represents a user.
@@ -40,6 +41,16 @@
 	let hasOpponent = false;
 
 	let emailIdMapping = new Map();
+
+	let submitMatch;
+
+	const unsubscribeMatch = submitedMatch.subscribe((submitedMatch) => {
+		submitMatch = submitedMatch;
+	});
+
+	onDestroy(() => {
+		unsubscribeMatch();
+	});
 
 	onMount(async () => {
 		const cookie = await getCookie();
@@ -128,3 +139,22 @@
 		<button class="btn variant-filled m-4" on:click={() => goto('/match')}> Start Match</button>
 	{/if}
 </div>
+
+{#if submitMatch}
+	<div class="flex items-end content-end">
+		<aside class="alert variant-ghost-success">
+			<!-- Icon -->
+
+			<!--TODO: legg til countdown fra timer -->
+			<div>(icon)</div>
+			<!-- Message -->
+			<div class="alert-message">
+				<h3 class="h3">(title)</h3>
+				<p>Match was submitted, this improved your mmr by points</p>
+				<!--TODO: legg til hvor mange points -->
+			</div>
+			<!-- Actions -->
+			<div class="alert-actions">(buttons)</div>
+		</aside>
+	</div>
+{/if}

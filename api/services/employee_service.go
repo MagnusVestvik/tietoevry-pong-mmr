@@ -88,7 +88,7 @@ func (es *EmployeeService) UpdateEmployeeElo(jwt *models.JWT, game *models.Game)
 	e2, _ := es.GetEmployee(jwt, game.Player2ID)
 
 	winner, loser := e1, e2
-	if game.Player2Score.Score > game.Player1Score.Score {
+	if game.Score2 > game.Score1 {
 		winner, loser = e2, e1
 	}
 

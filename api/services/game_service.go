@@ -36,21 +36,17 @@ func (as *GameService) CreateGame(jwt *models.JWT, game *models.Game) error {
 	if err != nil {
 		return weberrors.NewError(400, "invalid employee")
 	}
-	game.Player1ID = e1.ID
-	game.Player1Score.MatchID = game.ID
-	game.Player1Score.PlayerID = e1.ID
-
 	e2, err := as.employeeRepo.GetEmployee(game.Player2ID)
 	if err != nil {
 		return weberrors.NewError(400, "invalid employee")
 	}
 
+	game.Player1 = *e1
+	game.Player2 = *e2
+
 	if e1.ID == e2.ID {
 		return weberrors.NewError(400, "same employee")
 	}
-	game.Player2ID = e2.ID
-	game.Player2Score.MatchID = game.ID
-	game.Player2Score.PlayerID = e2.ID
 	return as.gameRepo.CreateGame(game)
 }
 
