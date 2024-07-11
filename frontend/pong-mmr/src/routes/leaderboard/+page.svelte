@@ -1,77 +1,45 @@
 <script>
-	/**
-	 * Represents a user.
-	 * @typedef {Object} User
-	 * @property {string} name - The name of the user.
-	 * @property {string} department - The department the user works at.
-	 * @property {number} points - The points the user has.
-	 * @property {number} [rank] - The rank of the user (optional at first).
-	 */
+	import { getCookie } from '$lib/auth';
+	import { getEmployees } from '$lib/game';
+    import { onMount } from 'svelte';
 
-	/**
-	 * Generates a list of users with unique ranks based on their points.
-	 * @returns {User[]} A list of 10 users with unique ranks.
-	 */
-	function generateUsers() {
-		// List of departments
-		const departments = ['Banking', 'Create', 'TechServices'];
+    /**
+     * Represents an employee.
+     * @typedef {Object} Employee
+     * @property {string} name - The name of the employee.
+     * @property {string} department - The department the employee works at.
+     * @property {number} elo - The elo of the employee.
+     * @property {string} email - The email of the employee.
+     * @property {number} games - The number of games the employee has played.
+     * @property {string} password - The password of the employee.
+     */
 
-		// List of realistic names
-		const names = [
-			'Frank',
-			'Peter',
-			'John',
-			'Jane',
-			'Alice',
-			'Bob',
-			'Eve',
-			'Charlie',
-			'Dave',
-			'Mallory'
-		];
+    /** @type {Employee[]} */
+    let employees = [];
 
-		// Generate random users
-		/** @type {User[]} */
-		let users = [];
-		for (let i = 0; i < 10; i++) {
-			users.push({
-				name: names[i],
-				department: departments[Math.floor(Math.random() * departments.length)],
-				points: Math.floor(Math.random() * 100) + 1 // Random points between 1 and 100
-			});
-		}
+    onMount(async () => {
+		let cookie = await getCookie()
+		employees = await getEmployees(cookie?.Authorization)
+	});
 
-		// Sort users by points in descending order and assign ranks
-		users
-			.sort((a, b) => b.points - a.points)
-			.forEach((user, index) => {
-				user.rank = index + 1;
-			});
-
-		return users;
-	}
-
-	// Generate and log the list of users
-	const arbitraryUsers = generateUsers();
 </script>
+
 
 <div class="flex flex-col h-full w-full justify-center">
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th>Rank Number</th>
 				<th>Name</th>
-				<th>MMR</th>
+				<th>MMR (Elo)</th>
 				<th>Department</th>
 			</tr>
 		</thead>
 		<tbody>
-			{#each arbitraryUsers as user}
+			{#each employees as employee}
 				<tr>
-					<td>{user.rank}</td>
-					<td>{user.name}</td>
-					<td>{user.points}</td>
-					<td>{user.department}</td>
+					<td>{employee.Name}</td>
+					<td>{employee.Elo}</td>
+					<td>{employee.Department}</td>
 				</tr>
 			{/each}
 		</tbody>

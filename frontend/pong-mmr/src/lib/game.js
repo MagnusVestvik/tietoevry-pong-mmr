@@ -50,3 +50,28 @@ export async function submitMatch(jwt, match, callback) {
 
 }
 
+export async function getEmployees(jwt, callback) {
+	let employees = [];
+	try {
+		const response = await fetch('http://localhost:8080/api/employees', {
+			headers: {
+				'Authorization': `Bearer ${jwt}`
+			}
+		});
+
+		if (!response.ok) {
+			throw new Error('Failed to create new user');
+		}
+
+		employees = await response.json();
+
+		if (callback && typeof callback === 'function') {
+			callback();
+		}
+		
+		return employees
+	}
+	catch (error) {
+		console.error('Error creating user: ', error);
+	}
+}
