@@ -647,20 +647,17 @@ const docTemplate = `{
             "description": "Game information between an employee and an user",
             "type": "object",
             "properties": {
-                "p1_id": {
+                "player1ID": {
                     "type": "string"
                 },
-                "p1_score": {
+                "player1Score": {
                     "$ref": "#/definitions/Score"
                 },
-                "p2_id": {
+                "player2ID": {
                     "type": "string"
                 },
-                "p2_score": {
+                "player2Score": {
                     "$ref": "#/definitions/Score"
-                },
-                "tournament_id": {
-                    "type": "string"
                 }
             }
         },
@@ -684,12 +681,6 @@ const docTemplate = `{
             "description": "Score information between an employee and an user",
             "type": "object",
             "properties": {
-                "match_id": {
-                    "type": "string"
-                },
-                "player_id": {
-                    "type": "string"
-                },
                 "score": {
                     "type": "integer"
                 }

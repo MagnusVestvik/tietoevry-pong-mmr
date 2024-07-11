@@ -78,7 +78,7 @@ func (ac *GameController) GetGame(c *fiber.Ctx) error {
 func (ac *GameController) CreateGame(c *fiber.Ctx) error {
 	var game models.Game
 	jwt := mapReqToJWT(c)
-	if err := c.BodyParser(&game); err != nil {
+	if err := c.BodyParser(&game); err != nil { // TODO: skjer feil her
 		return weberrors.NewError(400, err.Error())
 	}
 

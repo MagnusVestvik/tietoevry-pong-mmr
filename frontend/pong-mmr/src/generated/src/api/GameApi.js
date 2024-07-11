@@ -22,199 +22,199 @@ import Game from '../model/Game';
 */
 export default class GameApi {
 
-  /**
-  * Constructs a new GameApi. 
-  * @alias module:api/GameApi
-  * @class
-  * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
-  * default to {@link module:ApiClient#instanc
-  e} if unspecified.
-  */
-  constructor(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
-  }
-
-  /**
-   * Callback function to receive the result of the apiGamesGet operation.
-   * @callback moduleapi/GameApi~apiGamesGetCallback
-   * @param {String} error Error message, if any.
-   * @param {Array.<module:model/Game>{ data The data returned by the service call.
-   * @param {String} response The complete HTTP response.
-   */
-
-  /**
-   * Get all games
-   * Get all games
-   * @param {module:api/GameApi~apiGamesGetCallback} callback The callback function, accepting three arguments: error, data, response
-   * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
-   */
-  apiGamesGet(callback) {
-
-    let postBody = null;
-
-    let pathParams = {
-
-    };
-    let queryParams = {
-
-    };
-    let headerParams = {
-
-    };
-    let formParams = {
-
-    };
-
-    let authNames = [];
-    let contentTypes = [];
-    let accepts = ['application/json'];
-    let returnType = [Game];
-
-    return this.apiClient.callApi(
-      '/api/games', 'GET',
-      pathParams, queryParams, headerParams, formParams, postBody,
-      authNames, contentTypes, accepts, returnType, callback
-    );
-  }
-  /**
-   * Callback function to receive the result of the apiGamesIdDelete operation.
-   * @callback moduleapi/GameApi~apiGamesIdDeleteCallback
-   * @param {String} error Error message, if any.
-   * @param data This operation does not return a value.
-   * @param {String} response The complete HTTP response.
-   */
-
-  /**
-   * Delete an game by ID
-   * Delete an game by its ID
-   * @param {Number} id Game ID
-   * @param {module:api/GameApi~apiGamesIdDeleteCallback} callback The callback function, accepting three arguments: error, data, response
-   */
-  apiGamesIdDelete(id, callback) {
-
-    let postBody = null;
-    // verify the required parameter 'id' is set
-    if (id === undefined || id === null) {
-      throw new Error("Missing the required parameter 'id' when calling apiGamesIdDelete");
+    /**
+    * Constructs a new GameApi. 
+    * @alias module:api/GameApi
+    * @class
+    * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
+    * default to {@link module:ApiClient#instanc
+    e} if unspecified.
+    */
+    constructor(apiClient) {
+        this.apiClient = apiClient || ApiClient.instance;
     }
 
-    let pathParams = {
-      'id': id
-    };
-    let queryParams = {
+    /**
+     * Callback function to receive the result of the apiGamesGet operation.
+     * @callback moduleapi/GameApi~apiGamesGetCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Game>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
-    };
-    let headerParams = {
+    /**
+     * Get all games
+     * Get all games
+     * @param {module:api/GameApi~apiGamesGetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
+     */
+    apiGamesGet(callback) {
+      
+      let postBody = null;
 
-    };
-    let formParams = {
+      let pathParams = {
+        
+      };
+      let queryParams = {
+        
+      };
+      let headerParams = {
+        
+      };
+      let formParams = {
+        
+      };
 
-    };
+      let authNames = [];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [Game];
 
-    let authNames = [];
-    let contentTypes = [];
-    let accepts = [];
-    let returnType = null;
-
-    return this.apiClient.callApi(
-      '/api/games/{id}', 'DELETE',
-      pathParams, queryParams, headerParams, formParams, postBody,
-      authNames, contentTypes, accepts, returnType, callback
-    );
-  }
-  /**
-   * Callback function to receive the result of the apiGamesIdGet operation.
-   * @callback moduleapi/GameApi~apiGamesIdGetCallback
-   * @param {String} error Error message, if any.
-   * @param {module:model/Game{ data The data returned by the service call.
-   * @param {String} response The complete HTTP response.
-   */
-
-  /**
-   * Get an game by ID
-   * Get an game by its ID
-   * @param {Number} id Game ID
-   * @param {module:api/GameApi~apiGamesIdGetCallback} callback The callback function, accepting three arguments: error, data, response
-   * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
-   */
-  apiGamesIdGet(id, callback) {
-
-    let postBody = null;
-    // verify the required parameter 'id' is set
-    if (id === undefined || id === null) {
-      throw new Error("Missing the required parameter 'id' when calling apiGamesIdGet");
+      return this.apiClient.callApi(
+        '/api/games', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
     }
+    /**
+     * Callback function to receive the result of the apiGamesIdDelete operation.
+     * @callback moduleapi/GameApi~apiGamesIdDeleteCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
 
-    let pathParams = {
-      'id': id
-    };
-    let queryParams = {
+    /**
+     * Delete an game by ID
+     * Delete an game by its ID
+     * @param {Number} id Game ID
+     * @param {module:api/GameApi~apiGamesIdDeleteCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    apiGamesIdDelete(id, callback) {
+      
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling apiGamesIdDelete");
+      }
 
-    };
-    let headerParams = {
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+        
+      };
+      let headerParams = {
+        
+      };
+      let formParams = {
+        
+      };
 
-    };
-    let formParams = {
+      let authNames = [];
+      let contentTypes = [];
+      let accepts = [];
+      let returnType = null;
 
-    };
-
-    let authNames = [];
-    let contentTypes = [];
-    let accepts = ['application/json'];
-    let returnType = Game;
-
-    return this.apiClient.callApi(
-      '/api/games/{id}', 'GET',
-      pathParams, queryParams, headerParams, formParams, postBody,
-      authNames, contentTypes, accepts, returnType, callback
-    );
-  }
-  /**
-   * Callback function to receive the result of the apiGamesPost operation.
-   * @callback moduleapi/GameApi~apiGamesPostCallback
-   * @param {String} error Error message, if any.
-   * @param {module:model/Game{ data The data returned by the service call.
-   * @param {String} response The complete HTTP response.
-   */
-
-  /**
-   * Create a new game
-   * Create a new game
-   * @param {module:model/Game} body Game object
-   * @param {module:api/GameApi~apiGamesPostCallback} callback The callback function, accepting three arguments: error, data, response
-   * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
-   */
-  apiGamesPost(body, callback) {
-
-    let postBody = body;
-    // verify the required parameter 'body' is set
-    if (body === undefined || body === null) {
-      throw new Error("Missing the required parameter 'body' when calling apiGamesPost");
+      return this.apiClient.callApi(
+        '/api/games/{id}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
     }
+    /**
+     * Callback function to receive the result of the apiGamesIdGet operation.
+     * @callback moduleapi/GameApi~apiGamesIdGetCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Game{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
-    let pathParams = {
+    /**
+     * Get an game by ID
+     * Get an game by its ID
+     * @param {Number} id Game ID
+     * @param {module:api/GameApi~apiGamesIdGetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
+     */
+    apiGamesIdGet(id, callback) {
+      
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling apiGamesIdGet");
+      }
 
-    };
-    let queryParams = {
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+        
+      };
+      let headerParams = {
+        
+      };
+      let formParams = {
+        
+      };
 
-    };
-    let headerParams = {
+      let authNames = [];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = Game;
 
-    };
-    let formParams = {
+      return this.apiClient.callApi(
+        '/api/games/{id}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+    /**
+     * Callback function to receive the result of the apiGamesPost operation.
+     * @callback moduleapi/GameApi~apiGamesPostCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Game{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
-    };
+    /**
+     * Create a new game
+     * Create a new game
+     * @param {module:model/Game} body Game object
+     * @param {module:api/GameApi~apiGamesPostCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
+     */
+    apiGamesPost(body, callback) {
+      
+      let postBody = body;
+      // verify the required parameter 'body' is set
+      if (body === undefined || body === null) {
+        throw new Error("Missing the required parameter 'body' when calling apiGamesPost");
+      }
 
-    let authNames = [];
-    let contentTypes = ['*/*'];
-    let accepts = ['application/json'];
-    let returnType = Game;
+      let pathParams = {
+        
+      };
+      let queryParams = {
+        
+      };
+      let headerParams = {
+        
+      };
+      let formParams = {
+        
+      };
 
-    return this.apiClient.callApi(
-      '/api/games', 'POST',
-      pathParams, queryParams, headerParams, formParams, postBody,
-      authNames, contentTypes, accepts, returnType, callback
-    );
-  }
+      let authNames = [];
+      let contentTypes = ['*/*'];
+      let accepts = ['application/json'];
+      let returnType = Game;
+
+      return this.apiClient.callApi(
+        '/api/games', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
 
 }

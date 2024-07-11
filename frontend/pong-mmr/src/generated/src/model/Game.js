@@ -40,43 +40,36 @@ export default class Game {
   static constructFromObject(data, obj) {
     if (data) {
       obj = obj || new Game();
-      if (data.hasOwnProperty('p1_id'))
-        obj.p1Id = ApiClient.convertToType(data['p1_id'], 'String');
-      if (data.hasOwnProperty('p1_score'))
-        obj.p1Score = Score.constructFromObject(data['p1_score']);
-      if (data.hasOwnProperty('p2_id'))
-        obj.p2Id = ApiClient.convertToType(data['p2_id'], 'String');
-      if (data.hasOwnProperty('p2_score'))
-        obj.p2Score = Score.constructFromObject(data['p2_score']);
-      if (data.hasOwnProperty('tournament_id'))
-        obj.tournamentId = ApiClient.convertToType(data['tournament_id'], 'String');
+      if (data.hasOwnProperty('player1ID'))
+        obj.player1ID = ApiClient.convertToType(data['player1ID'], 'String');
+      if (data.hasOwnProperty('player1Score'))
+        obj.player1Score = Score.constructFromObject(data['player1Score']);
+      if (data.hasOwnProperty('player2ID'))
+        obj.player2ID = ApiClient.convertToType(data['player2ID'], 'String');
+      if (data.hasOwnProperty('player2Score'))
+        obj.player2Score = Score.constructFromObject(data['player2Score']);
     }
     return obj;
   }
 }
 
 /**
- * @member {String} p1Id
+ * @member {String} player1ID
  */
-Game.prototype.p1Id = undefined;
+Game.prototype.player1ID = undefined;
 
 /**
- * @member {module:model/Score} p1Score
+ * @member {module:model/Score} player1Score
  */
-Game.prototype.p1Score = undefined;
+Game.prototype.player1Score = undefined;
 
 /**
- * @member {String} p2Id
+ * @member {String} player2ID
  */
-Game.prototype.p2Id = undefined;
+Game.prototype.player2ID = undefined;
 
 /**
- * @member {module:model/Score} p2Score
+ * @member {module:model/Score} player2Score
  */
-Game.prototype.p2Score = undefined;
-
-/**
- * @member {String} tournamentId
- */
-Game.prototype.tournamentId = undefined;
+Game.prototype.player2Score = undefined;
 

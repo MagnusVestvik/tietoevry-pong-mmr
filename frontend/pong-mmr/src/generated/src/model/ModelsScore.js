@@ -15,30 +15,34 @@
 import ApiClient from '../ApiClient';
 
 /**
- * The Score model module.
- * @module model/Score
+ * The ModelsScore model module.
+ * @module model/ModelsScore
  * @version 0.1
  */
-export default class Score {
+export default class ModelsScore {
   /**
-   * Constructs a new <code>Score</code>.
+   * Constructs a new <code>ModelsScore</code>.
    * Score information between an employee and an user
-   * @alias module:model/Score
+   * @alias module:model/ModelsScore
    * @class
    */
   constructor() {
   }
 
   /**
-   * Constructs a <code>Score</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>ModelsScore</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/Score} obj Optional instance to populate.
-   * @return {module:model/Score} The populated <code>Score</code> instance.
+   * @param {module:model/ModelsScore} obj Optional instance to populate.
+   * @return {module:model/ModelsScore} The populated <code>ModelsScore</code> instance.
    */
   static constructFromObject(data, obj) {
     if (data) {
-      obj = obj || new Score();
+      obj = obj || new ModelsScore();
+      if (data.hasOwnProperty('match_id'))
+        obj.matchId = ApiClient.convertToType(data['match_id'], 'String');
+      if (data.hasOwnProperty('player_id'))
+        obj.playerId = ApiClient.convertToType(data['player_id'], 'String');
       if (data.hasOwnProperty('score'))
         obj.score = ApiClient.convertToType(data['score'], 'Number');
     }
@@ -47,7 +51,17 @@ export default class Score {
 }
 
 /**
+ * @member {String} matchId
+ */
+ModelsScore.prototype.matchId = undefined;
+
+/**
+ * @member {String} playerId
+ */
+ModelsScore.prototype.playerId = undefined;
+
+/**
  * @member {Number} score
  */
-Score.prototype.score = undefined;
+ModelsScore.prototype.score = undefined;
 
