@@ -14,7 +14,7 @@ This project is a web platform for tracking and ranking players' Matchmaking Rat
 ## Getting Started
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/ping-pong-mmr.git
+   git clone https://github.com/MagnusVestvik/ping-pong-mmr.git
    cd ping-pong-mmr
    ```
 2. **Create database and set secret**
