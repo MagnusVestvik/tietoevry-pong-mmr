@@ -125,7 +125,6 @@ export function getAllEmployees(jwt) {
 				/** @type {undefined} */ _,
 				/** @type {Promise<Array<User>>} */ response,
 			) => {
-				console.log("all employees response", response);
 				if (err) {
 					console.error(err);
 					reject(err);

@@ -73,7 +73,9 @@
 			ID: user.ID
 		}));
 
-		emailIdMapping = new Map(filteredEmployees.map((user) => [user.Email, [user.ID, user.Name]]));
+		emailIdMapping = new Map(
+			filteredEmployees.map((user) => [user.Email, { id: user.ID, name: user.Name }])
+		);
 
 		userSearchOptions = createUserSearchOptions(filteredEmployees);
 	});
