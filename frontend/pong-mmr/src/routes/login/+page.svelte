@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { login } from '$lib/auth';
+	import { login } from '$lib/services/authService.js';
 
 	let email = '';
 	let password = '';

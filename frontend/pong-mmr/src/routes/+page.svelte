@@ -1,13 +1,12 @@
 <script>
-	import { popup } from '@skeletonlabs/skeleton';
-	import Sparkles from '$lib/components/Sparkles.svelte';
 	import { Autocomplete } from '@skeletonlabs/skeleton';
 	import { onDestroy, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { getAllEmployees } from '$lib/getUsers';
-	import { getCookie } from '$lib/auth';
-	import { opponent } from '$lib/store';
-	import { submitedMatch } from '$lib/store';
+	import { popup } from '@skeletonlabs/skeleton';
+	import Sparkles from '$lib/components/Sparkles.svelte';
+	import { getAllEmployees } from '$lib/services/employeeService.js';
+	import { getCookie } from '$lib/services/authService.js';
+	import { opponent, submitedMatch } from '$lib/store.js';
 
 	/**
 	 * Represents a user.

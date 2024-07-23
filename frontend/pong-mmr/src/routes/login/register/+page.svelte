@@ -1,6 +1,6 @@
 <script>
-	import { createUser } from '$lib/userFunctions';
-	import { login } from '$lib/auth';
+	import { createUser } from '$lib/services/employeeService.js';
+	import { login } from '$lib/services/authService.js';
 	import { goto } from '$app/navigation';
 
 	const inputStyle = 'input variant-form-material focus:outline-none h-10 p-4';

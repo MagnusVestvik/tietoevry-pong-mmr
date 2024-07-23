@@ -1,13 +1,13 @@
 <script>
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import Pong from '$lib/components/Pong.svelte';
-	import { getUserId, getName } from '$lib/userFunctions';
+	import { getUserId, getName } from '$lib/services/employeeService.js';
+	import { submitMatch } from '$lib/services/gameService.js';
+	import { getCookie } from '$lib/services/authService.js';
 	import { opponent } from '$lib/store';
 	import { onDestroy, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { submitMatch } from '$lib/game';
 	import { submitedMatch } from '$lib/store';
-	import { getCookie } from '$lib/auth';
 
 	/** @type {[string, string] | null} */
 	let player2;
@@ -52,6 +52,7 @@
 		const jwt = cookie.Authorization;
 
 		response = await submitMatch(jwt, game, () => {
+			// set matchSubmitted to false so that a new match can be submitted later.
 			matchSubmitted = false;
 			goto('/');
 		});

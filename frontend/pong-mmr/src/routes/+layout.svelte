@@ -5,7 +5,7 @@
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
-	import { getCookie, parseJwt, deleteCookie } from '$lib/auth';
+	import { getCookie, parseJwt, deleteCookie } from '$lib/services/authService.js';
 	import { goto } from '$app/navigation';
 
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });

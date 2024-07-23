@@ -1,8 +1,5 @@
-import { goto } from "$app/navigation";
-import ApiClient from "../generated/src/ApiClient";
-import AuthApi from "../generated/src/api/AuthApi";
-
-
+import ApiClient from "../../generated/src/ApiClient.js";
+import AuthApi from "../../generated/src/api/AuthApi.js";
 
 /**
  * @type {ApiClient}
@@ -19,10 +16,9 @@ function getClient() {
 		return clientInstance;
 	}
 	clientInstance = new ApiClient();
-	clientInstance.basePath = 'http://localhost:8080';
+	clientInstance.basePath = "http://localhost:8080";
 	return clientInstance;
 }
-
 
 function getAuthApiClient() {
 	const client = getClient();
@@ -49,51 +45,70 @@ export async function login(user) {
 	return new Promise((resolve, reject) => {
 		const authApiClient = getAuthApiClient();
 
-		authApiClient.apiLoginPost(user, async (/** @type {Error} */ error, /** @type {undefined} */ _, /** @type {{ body: { token: any; }; }} */ response) => {
-			console.log('login response', response)
-			if (error) {
-				console.error('Error logging in: ', error);
-				reject(error);
-				return;
-			}
-			const token = response.body.token;
-			try {
-				const resp = await fetch('/api/set-cookie', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({ token: token })
-				});
-				resolve(resp.ok);
-			} catch (fetchError) {
-				console.error('Error setting cookie: ', fetchError);
-				reject(fetchError);
-			}
-		});
+		authApiClient.apiLoginPost(
+			user,
+			async (
+				/** @type {Error} */ error,
+				/** @type {undefined} */ _,
+				/** @type {{ body: { token: any; }; }} */ response,
+			) => {
+				console.log("login response", response);
+				if (error) {
+					console.error(
+						"Error logging in: ",
+						error,
+					);
+					reject(error);
+					return;
+				}
+				const token = response.body.token;
+				try {
+					const resp = await fetch(
+						"/api/set-cookie",
+						{
+							method: "POST",
+							headers: {
+								"Content-Type":
+									"application/json",
+							},
+							body: JSON.stringify({
+								token: token,
+							}),
+						},
+					);
+					resolve(resp.ok);
+				} catch (fetchError) {
+					console.error(
+						"Error setting cookie: ",
+						fetchError,
+					);
+					reject(fetchError);
+				}
+			},
+		);
 	});
 }
 
 /**
  * Retrieves a cookie from the server.
- * 
+ *
  * @returns {Promise<{Authorization?: string} | undefined>} A promise that resolves to an object with an optional Authorization property if successful, or undefined if an error occurs.
  * @throws {Error} If the server responds with a non-OK status.
  */
 export async function getCookie() {
 	try {
-		const response = await fetch('/api/get-cookie', {
-			method: 'GET',
+		const response = await fetch("/api/get-cookie", {
+			method: "GET",
 			headers: {
-				'Content-Type': 'application/json'
-			}
+				"Content-Type": "application/json",
+			},
 		});
 		if (response.ok) {
 			return response.json();
 		}
 		throw new Error("failed to retrive cookie");
 	} catch (error) {
-		console.error(error)
+		console.error(error);
 	}
 }
 
@@ -103,16 +118,18 @@ export async function getCookie() {
  * @returns {{name: string}} The decoded payload.
  */
 export function parseJwt(token) {
-	var base64Url = token.split('.')[1];
-	var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+	var base64Url = token.split(".")[1];
+	var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
 	var jsonPayload = decodeURIComponent(
 		window
 			.atob(base64)
-			.split('')
-			.map(function(c) {
-				return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+			.split("")
+			.map(function (c) {
+				return "%" +
+					("00" + c.charCodeAt(0).toString(16))
+						.slice(-2);
 			})
-			.join('')
+			.join(""),
 	);
 
 	return JSON.parse(jsonPayload);
@@ -120,18 +137,15 @@ export function parseJwt(token) {
 
 export async function deleteCookie() {
 	try {
-		const response = await fetch('/api/delete-cookie', {
-			method: 'DELETE'
+		const response = await fetch("/api/delete-cookie", {
+			method: "DELETE",
 		});
 		if (response.ok) {
-			console.log('Cookie deleted successfully');
+			console.log("Cookie deleted successfully");
 		} else {
-			console.error('Failed to delete cookie');
+			console.error("Failed to delete cookie");
 		}
 	} catch (error) {
-		console.error('Error:', error);
+		console.error("Error:", error);
 	}
 }
-
-
-

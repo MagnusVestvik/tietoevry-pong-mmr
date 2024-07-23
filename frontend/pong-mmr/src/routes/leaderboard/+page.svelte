@@ -1,29 +1,27 @@
 <script>
-	import { getCookie } from '$lib/auth';
-	import { getEmployees } from '$lib/game';
-    import { onMount } from 'svelte';
+	import { getCookie } from '$lib/services/authService.js';
+	import { getEmployees } from '$lib/services/gameService.js';
+	import { onMount } from 'svelte';
 
-    /**
-     * Represents an employee.
-     * @typedef {Object} Employee
-     * @property {string} name - The name of the employee.
-     * @property {string} department - The department the employee works at.
-     * @property {number} elo - The elo of the employee.
-     * @property {string} email - The email of the employee.
-     * @property {number} games - The number of games the employee has played.
-     * @property {string} password - The password of the employee.
-     */
+	/**
+	 * Represents an employee.
+	 * @typedef {Object} Employee
+	 * @property {string} name - The name of the employee.
+	 * @property {string} department - The department the employee works at.
+	 * @property {number} elo - The elo of the employee.
+	 * @property {string} email - The email of the employee.
+	 * @property {number} games - The number of games the employee has played.
+	 * @property {string} password - The password of the employee.
+	 */
 
-    /** @type {Employee[]} */
-    let employees = [];
+	/** @type {Employee[]} */
+	let employees = [];
 
-    onMount(async () => {
-		let cookie = await getCookie()
-		employees = await getEmployees(cookie?.Authorization)
+	onMount(async () => {
+		let cookie = await getCookie();
+		employees = await getEmployees(cookie?.Authorization);
 	});
-
 </script>
-
 
 <div class="flex flex-col h-full w-full justify-center">
 	<table class="table table-hover">
