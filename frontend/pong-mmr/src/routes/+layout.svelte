@@ -42,7 +42,7 @@
 			<svelte:fragment slot="lead">
 				<div class="grid grid-cols-4 gap-3">
 					<LightSwitch />
-					<a class="btn btn-sm variant-ghost-surface" href="/leaderboard"> LeaderBoard </a>
+					<a class="btn btn-sm variant-ghost-surface" href="/leaderboard"> Leaderboard </a>
 					<a class="btn btn-sm variant-ghost-surface" href="/">Home</a>
 					{#if !name}
 						<a class="btn btn-sm variant-ghost-surface" href="/login">Sign in</a>

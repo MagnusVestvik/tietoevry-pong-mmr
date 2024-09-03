@@ -112,29 +112,30 @@
 <div class="flex flex-col items-center mt-10 h-screen w-screen">
 	<Sparkles
 		text="Pong MMR: Find Your Ceiling"
-		height="10%"
-		width="40%"
+		height="15%"
+		width="45%"
 		backgroundColor="transparent"
-	/>
 
-	<div class="flex items-center card shadow-gray-700 p-10 max-w-[80%] mt-28">
-		<div class="grid-cols-2">
-			<input
-				class="input autocomplete p-2"
-				type="search"
-				name="autocomplete-search"
-				bind:value={userSelect}
-				placeholder="Search..."
-				use:popup={popupSettings}
+	/>
+	<div class="grid-cols-2 m-4 min-w-[40%]">
+		<input
+			class="input autocomplete p-2"
+			type="search"
+			name="autocomplete-search"
+			bind:value={userSelect}
+			placeholder="Find opponent"
+			use:popup={popupSettings}
+		/>
+		<div data-popup="popupAutocomplete">
+			<Autocomplete
+				bind:input={userSelect}
+				options={userSearchOptions}
+				on:selection={onUserSelect}
 			/>
-			<div data-popup="popupAutocomplete">
-				<Autocomplete
-					bind:input={userSelect}
-					options={userSearchOptions}
-					on:selection={onUserSelect}
-				/>
-			</div>
 		</div>
+	</div>
+	<div class="flex items-center card shadow-gray-700 p-10 max-w-[80%] mt-28">
+		sure buddy
 	</div>
 	{#if hasOpponent}
 		<button class="btn variant-filled m-4" on:click={() => goto('/match')}> Start Match</button>
