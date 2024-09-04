@@ -83,12 +83,11 @@
 			></div>
 		{/each}
 	</div>
-	<h1 class="relative z-20 flex justify-center items-center h-full text-center h1">
-		<span
-			class="bg-gradient-to-br from-blue-500 to-cyan-300 bg-clip-text text-transparent box-decoration-clone"
-			>{text}</span
-		>
-	</h1>
+	<div class="relative z-20 flex justify-center items-center h-full text-center h1">
+		<h1 >
+			<span class="bg-gradient-to-br from-blue-500 to-cyan-300 bg-clip-text text-transparent box-decoration-clone">{text}</span>
+		</h1>
+	</div>
 </div>
 
 <style>
