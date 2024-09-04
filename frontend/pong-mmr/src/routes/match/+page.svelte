@@ -71,12 +71,12 @@
 				/>
 			</header>
 			<section class="flex flex-col p-4 items-center">
-				<h1>Score: {0}</h1>
+				<h1>Score: {game && game.Score1}</h1>
 				<div class="flex flex-row">
-					<button class="btn variant-filled m-1" on:click={() => game && game.p1Score.score++}
+					<button class="btn variant-filled m-1" on:click={() => game.Score1++}
 						>+</button
 					>
-					<button class="btn variant-filled m-1" on:click={() => game && game.p1Score.score--}
+					<button class="btn variant-filled m-1" on:click={() => game.Score1--}
 						>-</button
 					>
 				</div>
@@ -94,12 +94,12 @@
 					/>
 				</header>
 				<section class="flex flex-col p-4 items-center">
-					<h1>Score: {0}</h1>
+					<h1>Score: {game && game.Score2}</h1>
 					<div class="flex flex-row">
-						<button class="btn variant-filled m-1" on:click={() => game && game.p2Score.score++}
+						<button class="btn variant-filled m-1" on:click={() => game && game.Score2++}
 							>+</button
 						>
-						<button class="btn variant-filled m-1" on:click={() => game && game.p2Score.score--}
+						<button class="btn variant-filled m-1" on:click={() => game && game.Score2--}
 							>-</button
 						>
 					</div>
