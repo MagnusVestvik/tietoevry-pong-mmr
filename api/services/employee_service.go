@@ -124,7 +124,7 @@ func (es *EmployeeService) validateEmployee(employee *models.Employee) error {
 		return err
 	}
 
-	if len(employee.Password) <= 8 {
+	if len(employee.Password) < 8 {
 		return fmt.Errorf("password must be at least 8 characters long")
 	}
 
